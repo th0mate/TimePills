@@ -1,0 +1,274 @@
+/**
+------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------- STYLE DE BASE ----------------------------------------------------------
+ */
+
+
+form:not(.element, .recherche) > div:not(.wrapSwitch, .wrapSubmit) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+
+    p {
+        font-size: 0.6em;
+        margin: 0;
+        padding-bottom: 40px;
+        padding-top: 5px;
+    }
+}
+
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------- FIELDS -------------------------------------------------------------
+ */
+
+
+.inputbox {
+    padding-top: 20px;
+    position: relative;
+    margin: 0;
+    width: 360px;
+    border-bottom: 2px solid var(--rouge);
+    padding-right: 20px;
+    transition: 0.5s;
+    border-radius: 5px;
+
+    img:not(.randomImage) {
+        display: none;
+        padding-left: 10px;
+        width: 25px;
+        padding-top: 10px;
+        position: absolute;
+        top: 50%;
+        right: -10px;
+        z-index: 1;
+        transform: translateY(-50%);
+    }
+
+}
+
+
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 1em;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.inputbox .input:focus ~ label, .inputbox .input:not(:placeholder-shown) ~ label {
+    top: 0;
+    font-size: 0.9em;
+}
+
+.inputbox .input:not(:valid) ~ .error {
+    display: block;
+}
+
+.inputbox .input:valid ~ .success {
+    display: block;
+}
+
+.inputbox .input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: black;
+}
+
+.wrapSwitch {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    padding-left: 10px;
+}
+
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------- SWITCH -------------------------------------------------------------
+ */
+
+
+.switch {
+    --s: 20px;
+    height: calc(var(--s) + var(--s) / 5);
+    width: auto;
+    aspect-ratio: 2.25;
+    border-radius: var(--s);
+    margin: calc(var(--s) / 2);
+    display: grid;
+    cursor: pointer;
+    background-color: var(--rouge);
+    box-sizing: content-box;
+    overflow: hidden;
+    transition: .3s .1s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.switch:before {
+    content: "";
+    padding: calc(var(--s) / 10);
+    --_g: radial-gradient(circle closest-side at calc(100% - var(--s) / 2) 50%, #000 96%, #0000);
+    background: var(--_g) 0 /var(--_p, var(--s)) 100% no-repeat content-box,
+    var(--_g) var(--_p, 0)/var(--s) 100% no-repeat content-box,
+    #fff;
+    mix-blend-mode: darken;
+    filter: blur(calc(var(--s) / 12)) contrast(11);
+    transition: .4s, background-position .4s .1s,
+    padding cubic-bezier(0, calc(var(--_i, -1) * 200), 1, calc(var(--_i, -1) * 200)) .25s .1s;
+}
+
+.switch:checked {
+    background-color: var(--rouge);
+}
+
+.switch:checked:before {
+    padding: calc(var(--s) / 10 + .05px) calc(var(--s) / 10);
+    --_p: 100%;
+    --_i: 1;
+}
+
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------- SUBMIT -------------------------------------------------------------
+ */
+
+
+.wrapSubmit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+
+.submit {
+    width: 150px;
+    height: 40px;
+    background: var(--rouge);
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.5s;
+    margin-top: 15px;
+}
+
+.submit:hover {
+    background-color: #555555;
+}
+
+.disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------- DARK MODE --------------------------------------------------------
+ */
+
+
+.dark {
+
+    .inputbox label {
+        color: white;
+    }
+
+    .inputbox .input {
+        color: white;
+    }
+}
+
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------- PRE REMPLISSAGE -----------------------------------------------------
+ */
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: black !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.dark {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+        box-shadow: 0 0 0px 1000px transparent inset !important;
+        -webkit-text-fill-color: white !important;
+        transition: background-color 5000s ease-in-out 0s;
+        color: white!important;
+    }
+}
+
+
+/**
+------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------- RESPONSIVE ---------------------------------------------------------
+ */
+
+
+
+@media (max-width: 600px) {
+
+    form > div {
+        justify-content: center!important;
+        align-items: center!important;
+        align-content: center;
+        padding-right: 5px;
+    }
+
+    .inputbox:not(.randomBox) {
+        width: 90%;
+    }
+
+    .randomBox {
+        width: 150px;
+        margin-right: auto;
+        margin-left: 7px;
+    }
+
+    .wrapSwitch {
+        padding-left: 0;
+    }
+
+    .wrapSubmit {
+        padding-top: 50px;
+    }
+
+    .submit {
+        width: 50%;
+    }
+
+}
+
+
