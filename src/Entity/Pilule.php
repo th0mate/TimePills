@@ -26,6 +26,9 @@ class Pilule
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $calendrier = null;
 
+    #[ORM\OneToOne(mappedBy: 'pilule', cascade: ['persist', 'remove'])]
+    private ?Utilisateur $utilisateur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,28 @@ class Pilule
     public function setCalendrier(?string $calendrier): static
     {
         $this->calendrier = $calendrier;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($utilisateur === null && $this->utilisateur !== null) {
+            $this->utilisateur->setPilule(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($utilisateur !== null && $utilisateur->getPilule() !== $this) {
+            $utilisateur->setPilule($this);
+        }
+
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

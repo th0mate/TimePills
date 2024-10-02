@@ -35,6 +35,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDerniereNotif = null;
 
+    #[ORM\OneToOne(inversedBy: 'utilisateur', cascade: ['persist', 'remove'])]
+    private ?Pilule $pilule = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -118,6 +121,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateDerniereNotif(?\DateTimeInterface $dateDerniereNotif): static
     {
         $this->dateDerniereNotif = $dateDerniereNotif;
+
+        return $this;
+    }
+
+    public function getPilule(): ?Pilule
+    {
+        return $this->pilule;
+    }
+
+    public function setPilule(?Pilule $pilule): static
+    {
+        $this->pilule = $pilule;
 
         return $this;
     }

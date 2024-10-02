@@ -1,17 +1,52 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <title>{% block page_title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/base.css') }}">
+    {% block cssSupplementaire %}{% endblock %}
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
+    <script defer src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script defer src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script type="text/javascript" src="{{ asset('js/messagesFlash.js') }}" defer></script>
+    {% block jsSupplementaire %}{% endblock %}
+</head>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+
+<body>
+
+
+{% for message in app.flashes('success') %}
+    <script> document.addEventListener('DOMContentLoaded', function () {
+            afficherMessageFlash('{{ message }}', 'success')
+        });</script>
+{% endfor %}
+
+{% for message in app.flashes('warning') %}
+    <script> document.addEventListener('DOMContentLoaded', function () {
+            afficherMessageFlash('{{ message }}', 'warning')
+        });</script>
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+    <script> document.addEventListener('DOMContentLoaded', function () {
+            afficherMessageFlash('{{ message }}', 'danger')
+        });</script>
+{% endfor %}
+
+{% for message in app.flashes('info') %}
+    <script> document.addEventListener('DOMContentLoaded', function () {
+            afficherMessageFlash('{{ message }}', 'info')
+        });</script>
+{% endfor %}
+
+
+<div class="other">
+    {% block page_content %}
+    {% endblock %}
+</div>
+
+
+</body>
 </html>
