@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}
+    TimePills | Inscription
+{% endblock %}
+
+{% block cssSupplementaire %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/inscription.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/formulaires.css') }}">
+{% endblock %}
+
+
+{% block page_content %}
+    <div class="onglet1">
+        <h1>Inscription</h1>
+    </div>
+
+    <div class="wrapTop">
+        <img class="illu" src="{{ asset('img/welcome.png') }}" alt="">
+
+        <div>
+            <h2>Rejoignez <span class="greenText">Pages Vertes</span>, et devenez visible auprès de nos utilisateurs !
+            </h2>
+            <h4 class="light">Créez votre compte et devenez visible auprès de centaines d'utilisateurs !</h4>
+            <h4 class="light">Profitez d'une connexion <span class="greenText">sécurisée</span> et <span
+                        class="greenText">chiffrée</span> !</h4>
+        </div>
+    </div>
+    {{ form_start(formInscription, {'attr': {'class': 'center basic-form'}}) }}
+    <div>
+        <div class="inputbox">
+            {{ form_widget(formInscription.prenom, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
+            <label for="prenom">Login</label>
+            <img class="success" src="{{ asset('img/success.png') }}" alt="">
+            <img class="error" src="{{ asset('img/danger.png') }}" alt="">
+        </div>
+        <p class="help-input-form">Entre 4 et 50 caractères.</p>
+    </div>
+    <div>
+        <div class="inputbox">
+            {{ form_widget(formInscription.adresseEmail, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
+            {# {{ form_label(formInscription.adresseEmail) }} #}
+            <label for="adresseEmail">Adresse Email</label>
+            <img class="success" src="{{ asset('img/success.png') }}" alt="">
+            <img class="error" src="{{ asset('img/danger.png') }}" alt="">
+        </div>
+        <p class="help-input-form">Adresse email valide.</p>
+    </div>
+    <div>
+        <div class="inputbox">
+            {{ form_widget(formInscription.plainPassword, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
+            <label for="plainPassword">Mot de passe</label>
+            {# {{ form_label(formInscription.plainPassword) }} #}
+            <img class="success" src="{{ asset('img/success.png') }}" alt="">
+            <img class="error" src="{{ asset('img/danger.png') }}" alt="">
+        </div>
+        <p class="help-input-form">Entre 8 et 30 caractères, au moins une minuscule, une majuscule et un nombre.</p>
+    </div>
+
+    <div class="wrapSubmit">
+        {{ form_widget(formInscription.inscription, {'label':'S\'inscrire', 'attr': {'class': 'submit'}}) }}
+    </div>
+    {{ form_rest(formInscription) }}
+    {{ form_end(formInscription) }}
+{% endblock %}
