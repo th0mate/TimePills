@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}
+    TimePills | Connexion
+{% endblock %}
+
+{% block cssSupplementaire %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/inscription.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/formulaires.css') }}">
+{% endblock %}
+
+
+{% block page_content %}
+    <div class="onglet1">
+        <h1>Connexion</h1>
+    </div>
+
+    <div class="wrapTop">
+        <img class="illu" src="{{ asset('img/connexion.png') }}" alt="">
+
+        <div>
+            <h2>Bonjour !</h2>
+            <h2>Re-bienvenue sur <span class="greenText">Pages Vertes</span>, l'annuaire en ligne made-in IUT ! </h2>
+            <h4 class="light"><span class="greenText">Connectez-vous</span> pour accéder à votre espace !</h4>
+        </div>
+    </div>
+
+    <form action="{{ path('connexion') }}" method="post">
+        <div class="inputbox">
+            <input class="input" placeholder=" " id="login" type="email" name="_username" required minlength="4"/>
+            <label for="login">Adresse mail</label>
+            <img class="success" src="{{ asset('img/success.png') }}" alt="">
+            <img class="error" src="{{ asset('img/danger.png') }}" alt="">
+        </div>
+        <div class="inputbox">
+            <input class="input" placeholder=" " id="password" type="password" name="_password" required minlength="8"
+                   maxlength="30" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,30}$"/>
+            <label for="password">Mot de passe</label>
+            <img class="success" src="{{ asset('img/success.png') }}" alt="">
+            <img class="error" src="{{ asset('img/danger.png') }}" alt="">
+        </div>
+        <div class="wrapSubmit">
+            <button type="submit" class="submit">Se connecter</button>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    </form>
+
+
+{% endblock %}

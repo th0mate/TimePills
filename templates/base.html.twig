@@ -25,8 +25,20 @@
     <div class="wrapRedirections">
         <a href="{{ path('TimePills') }}" class="redirection {% if page_actuelle == 'Accueil' %}active{% endif %}"><img src="{{ asset('img/accueil.png') }}" alt=""><p>Accueil</p></a>
         <a href="{{ path('credits') }}" class="redirection {% if page_actuelle == 'Credits' %}active{% endif %}"><img src="{{ asset('img/credits.png') }}" alt=""><p>Crédits</p></a>
-        <a href="" class="redirection"><img src="{{ asset('img/profil.png') }}" alt=""><p>Connexion</p></a>
+
+        {% if not is_granted('ROLE_USER') %}
+
+        <a href="{{ path('connexion') }}" class="redirection {% if page_actuelle == 'Connexion' %}active{% endif %}"><img src="{{ asset('img/profil.png') }}" alt=""><p>Connexion</p></a>
         <a href="{{ path('inscription') }}" class="redirection {% if page_actuelle == 'Inscription' %}active{% endif %}"><img src="{{ asset('img/inscription.png') }}" alt=""><p>Inscription</p></a>
+
+        {% else %}
+
+            <form method="post" class="element" action="{{ path('_logout_main') }}">
+                <img src="{{ asset('img/se-deconnecter.png') }}" alt="">
+                <button id="btn-deconnexion">Déconnexion</button>
+            </form>
+
+        {% endif %}
     </div>
 </nav>
 

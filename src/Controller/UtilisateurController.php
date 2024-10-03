@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UtilisateurController extends AbstractController
 {
@@ -70,6 +71,24 @@ class UtilisateurController extends AbstractController
 
         return $this->render('utilisateur/inscription.html.twig', ['formInscription' => $form, 'page_actuelle' => 'Inscription']);
     }
+
+    /**
+     * Route pour se connecter
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response : page de connexion
+     */
+    #[Route('/connexion', name: 'connexion', methods: ['GET', 'POST'])]
+    public function connexion(AuthenticationUtils $authenticationUtils): Response
+    {
+        if ($this->isGranted('ROLE_USER')) {
+            $this->addFlash('danger', 'Vous êtes déjà connecté.');
+            return $this->redirectToRoute('TimePills');
+        }
+
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('utilisateur/connexion.html.twig', ['page_actuelle' => 'Connexion', 'last_username' => $lastUsername]);
+    }
+
 
 
 
