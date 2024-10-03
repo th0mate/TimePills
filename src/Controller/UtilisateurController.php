@@ -48,7 +48,7 @@ class UtilisateurController extends AbstractController
     {
 
         if ($this->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('pages_vertes');
+            return $this->redirectToRoute('TimePills');
         }
 
         $inscription = new Utilisateur();
@@ -65,7 +65,7 @@ class UtilisateurController extends AbstractController
             $entityManager->persist($utilisateur);
             $entityManager->flush();
             $this->addFlash('success', 'Profil inscrit avec succès !');
-            return $this->redirectToRoute('pages_vertes');
+            return $this->redirectToRoute('TimePills');
         }
 
         return $this->render('utilisateur/inscription.html.twig', ['formInscription' => $form, 'page_actuelle' => 'Inscription']);
