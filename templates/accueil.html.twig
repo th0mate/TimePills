@@ -32,28 +32,58 @@
 
     <div class="wrapAccueil">
 
-        <div class="elementAccueil">
-            <img src="{{ asset('img/notification.png') }}" alt="">
-            <div>
-                <h3 class="light redText">Notifications</h3>
-                <p>Recevez des <span class="redText">rappels</span> de <span class="redText">notifications</span> pour
-                    ne plus oublier de prendre vos médicaments !</p>
+        {% if not is_granted('ROLE_USER') %}
+            <div class="elementAccueil">
+                <img src="{{ asset('img/notification.png') }}" alt="">
+                <div>
+                    <h3 class="light redText">Notifications</h3>
+                    <p>Recevez des <span class="redText">rappels</span> de <span class="redText">notifications</span>
+                        pour
+                        ne plus oublier de prendre vos médicaments !</p>
+                </div>
             </div>
-        </div>
-        <div class="elementAccueil">
-            <img src="{{ asset('img/programme.png') }}" alt="">
-            <div>
-                <h3 class="light redText">Calendrier</h3>
-                <p><span class="redText">Programmez</span> votre calendrier pour vos <span class="redText">médicaments</span> ponctuels, y compris vos pauses.</p>
+            <div class="elementAccueil">
+                <img src="{{ asset('img/programme.png') }}" alt="">
+                <div>
+                    <h3 class="light redText">Calendrier</h3>
+                    <p><span class="redText">Programmez</span> votre calendrier pour vos <span
+                                class="redText">médicaments</span> ponctuels, y compris vos pauses.</p>
+                </div>
             </div>
-        </div>
-        <div class="elementAccueil">
-            <img src="{{ asset('img/pilules.png') }}" alt="">
-            <div>
-                <h3 class="light redText">Paramétrage</h3>
-                <p><span class="redText">Paramétrez</span> votre <span class="redText">heure</span> de prise pour rester le plus précis que possible !</p>
+            <div class="elementAccueil">
+                <img src="{{ asset('img/pilules.png') }}" alt="">
+                <div>
+                    <h3 class="light redText">Paramétrage</h3>
+                    <p><span class="redText">Paramétrez</span> votre <span class="redText">heure</span> de prise pour
+                        rester
+                        le plus précis que possible !</p>
+                </div>
             </div>
-        </div>
+
+        {% else %}
+            <div class="elementAccueil">
+                <img src="{{ asset('img/notification.png') }}" alt="">
+                <div>
+                    <h3 class="light redText">Prochaine notifications</h3>
+                    <p>Prochaine notification <span class="redText">rappels</span> à <span class="redText">22h</span> !</p>
+                </div>
+            </div>
+            <div class="elementAccueil">
+                <img src="{{ asset('img/programme.png') }}" alt="">
+                <div>
+                    <h3 class="light redText">Calendrier</h3>
+                    <p>Votre prochaine <span class="redText">pause</span> sera dans <span
+                                class="redText">22</span> jours</p>
+                </div>
+            </div>
+            <div class="elementAccueil">
+                <img src="{{ asset('img/pilules.png') }}" alt="">
+                <div>
+                    <h3 class="light redText">Mes médicaments</h3>
+                    <p>Vous avez <span class="redText">1</span> médicament.<br><span class="redText">Ajoutez</span> d'autres médicaments.</p>
+                </div>
+            </div>
+        {% endif %}
 
 
     </div>
