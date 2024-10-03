@@ -7,8 +7,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/base.css') }}">
     {% block cssSupplementaire %}{% endblock %}
     <link rel="icon" type="image/png" href="{{ asset('img/TimePillsLogo.png') }}">
+    <!--
     <script defer src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script defer src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    -->
     <script type="text/javascript" src="{{ asset('js/messagesFlash.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/gestionThemes.js') }}" defer></script>
     {% block jsSupplementaire %}{% endblock %}
@@ -22,7 +24,7 @@
 
     <div class="wrapRedirections">
         <a href="{{ path('TimePills') }}" class="redirection {% if page_actuelle == 'Accueil' %}active{% endif %}"><img src="{{ asset('img/accueil.png') }}" alt=""><p>Accueil</p></a>
-        <a href="{{ path('TimePills') }}" class="redirection {% if page_actuelle == 'Credits' %}active{% endif %}"><img src="{{ asset('img/credits.png') }}" alt=""><p>Crédits</p></a>
+        <a href="{{ path('credits') }}" class="redirection {% if page_actuelle == 'Credits' %}active{% endif %}"><img src="{{ asset('img/credits.png') }}" alt=""><p>Crédits</p></a>
         <a href="" class="redirection"><img src="{{ asset('img/profil.png') }}" alt=""><p>Connexion</p></a>
         <a href="" class="redirection"><img src="{{ asset('img/inscription.png') }}" alt=""><p>Inscription</p></a>
     </div>
