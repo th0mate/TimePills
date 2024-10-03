@@ -38,6 +38,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'utilisateur', cascade: ['persist', 'remove'])]
     private ?Pilule $pilule = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -133,6 +136,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPilule(?Pilule $pilule): static
     {
         $this->pilule = $pilule;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): static
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }

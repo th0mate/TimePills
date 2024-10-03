@@ -6,3 +6,52 @@
     }
 }
 
+
+.wrapAccueil {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .elementAccueil {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        padding: 10px;
+        background-color: #e6e6e6;
+        border-radius: 10px;
+        width: 350px;
+        height: 100%;
+        margin: 5px;
+
+        img {
+            width: 60px;
+            padding-right: 15px;
+        }
+    }
+}
+
+.dark {
+    .wrapAccueil {
+        .elementAccueil {
+            background-color: #232323;
+        }
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .wrapAccueil {
+        width: 98%;
+        margin: auto;
+
+        .elementAccueil {
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+}
+
