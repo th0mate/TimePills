@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use App\Service\FlashMessageHelperInterface;
+use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UtilisateurController extends AbstractController
 {
+
+    public function __construct(
+        private FlashMessageHelperInterface $flashMessageHelperInterface,
+        private UtilisateurManagerInterface $utilisateurManagerInterface
+    ) {
+    }
+
     #[Route('/', name: 'TimePills', options: ["expose" => true], methods: ['GET', 'POST'])]
     public function index(): Response
     {

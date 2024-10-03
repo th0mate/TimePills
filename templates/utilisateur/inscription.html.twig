@@ -16,21 +16,22 @@
     </div>
 
     <div class="wrapTop">
-        <img class="illu" src="{{ asset('img/welcome.png') }}" alt="">
+        <img class="illu" src="{{ asset('img/inscriptionIllu.png') }}" alt="">
 
         <div>
-            <h2>Rejoignez <span class="greenText">Pages Vertes</span>, et devenez visible auprès de nos utilisateurs !
+            <h2>Rejoignez <span class="redText">TimePills</span>, et n'oubliez plus vos traitements !
             </h2>
-            <h4 class="light">Créez votre compte et devenez visible auprès de centaines d'utilisateurs !</h4>
-            <h4 class="light">Profitez d'une connexion <span class="greenText">sécurisée</span> et <span
-                        class="greenText">chiffrée</span> !</h4>
+            <h4 class="light">Créez votre compte et créez vos alertes et vos calendriers.</h4>
+            <h4 class="light">N'oubliez plus vos <span class="redText">pilules</span> à prendre et vos <span
+                        class="redText">médicaments</span> !</h4>
+            <h4 class="light">Recevez des <span class="redText">notifications</span> sur tous vos appareils pour ne plus rien oublier.<span class="redText">TimePills</span>, c'est l'assurance de ne plus louper ses traitements !</h4>
         </div>
     </div>
     {{ form_start(formInscription, {'attr': {'class': 'center basic-form'}}) }}
     <div>
         <div class="inputbox">
             {{ form_widget(formInscription.prenom, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
-            <label for="prenom">Login</label>
+            <label for="prenom">Prénom</label>
             <img class="success" src="{{ asset('img/success.png') }}" alt="">
             <img class="error" src="{{ asset('img/danger.png') }}" alt="">
         </div>
@@ -38,9 +39,9 @@
     </div>
     <div>
         <div class="inputbox">
-            {{ form_widget(formInscription.adresseEmail, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
+            {{ form_widget(formInscription.adresseMail, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
             {# {{ form_label(formInscription.adresseEmail) }} #}
-            <label for="adresseEmail">Adresse Email</label>
+            <label for="adresseMail">Adresse Email</label>
             <img class="success" src="{{ asset('img/success.png') }}" alt="">
             <img class="error" src="{{ asset('img/danger.png') }}" alt="">
         </div>

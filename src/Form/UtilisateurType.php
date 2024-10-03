@@ -41,7 +41,7 @@ class UtilisateurType extends AbstractType
                     new NotNull(['message' => 'Le prénom ne peut pas être null'])
                 ]])
 
-            ->add('adresseEmail', EmailType::class, [
+            ->add('adresseMail', EmailType::class, [
                 'attr' => [
                     'maxlength' => 255
                 ],
