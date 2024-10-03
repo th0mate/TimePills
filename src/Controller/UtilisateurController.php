@@ -85,6 +85,7 @@ class UtilisateurController extends AbstractController
             return $this->redirectToRoute('TimePills');
         }
 
+        //TODO messages flash après connexion et déconnexion
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('utilisateur/connexion.html.twig', ['page_actuelle' => 'Connexion', 'last_username' => $lastUsername]);
     }
