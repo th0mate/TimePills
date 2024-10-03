@@ -13,8 +13,6 @@ function change_period2(period) {
         selector.style.backgroundColor = "#FF5959";
         selector.innerHTML = `<img src="${soleilImageURL}" alt="">`;
         document.querySelector('.dark').classList.remove('dark');
-        document.querySelector('.logoNoir').style.display = "flex";
-        document.querySelector('.logoBlanc').style.display = "none";
         StockerCookieTheme("clair");
 
 
@@ -27,8 +25,6 @@ function change_period2(period) {
 
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.querySelector('html').classList.add('dark');
-            document.querySelector('.logoNoir').style.display = "none";
-            document.querySelector('.logoBlanc').style.display = "flex";
         }
     } else {
         selector.style.left = monthly.clientWidth + semester.clientWidth + 1 + "px";
@@ -36,8 +32,6 @@ function change_period2(period) {
         selector.innerHTML = `<img src="${luneImageURL}" alt="">`;
         selector.style.backgroundColor = "#FF5959";
         document.querySelector('html').classList.add('dark');
-        document.querySelector('.logoNoir').style.display = "none";
-        document.querySelector('.logoBlanc').style.display = "flex";
         StockerCookieTheme("sombre");
     }
 }

@@ -36,6 +36,26 @@ body {
 
 .redText {
     color: var(--rouge);
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+
+a.redText {
+    position: relative;
+}
+
+a.redText span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border: 1px solid var(--rouge);
+    border-radius: 3px;
+    width: 0;
+    transition: width 0.5s ease-in-out;
+}
+
+a.redText:hover > span {
+    width: 100%;
 }
 
 .light {
