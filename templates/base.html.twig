@@ -32,6 +32,9 @@
         <a href="{{ path('inscription') }}" class="redirection {% if page_actuelle == 'Inscription' %}active{% endif %}"><img src="{{ asset('img/inscription.png') }}" alt=""><p>Inscription</p></a>
 
         {% else %}
+        <a href="" class="redirection {% if page_actuelle == 'Pilules' %}active{% endif %}"><img src="{{ asset('img/pills.png') }}" alt=""><p>Médicaments</p></a>
+            <a href="" class="redirection {% if page_actuelle == 'Profil' %}active{% endif %}"><img src="{{ asset('img/profil.png') }}" alt=""><p>{{ app.user.prenom }}</p></a>
+
 
             <form method="post" class="element" action="{{ path('_logout_main') }}">
                 <img src="{{ asset('img/se-deconnecter.png') }}" alt="">
