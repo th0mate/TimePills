@@ -6,7 +6,7 @@
  */
 
 :root {
-    --rouge : #FF5959;
+    --rouge: #FF5959;
 }
 
 html {
@@ -22,13 +22,14 @@ body {
 }
 
 .other {
-    padding-left: 15px;
+    margin: auto;
     width: 95%;
     height: 100%;
 
     .onglet1 {
         color: var(--rouge);
         display: flex;
+        text-decoration: underline;
 
     }
 }
@@ -38,8 +39,54 @@ body {
 }
 
 .light {
+    font-weight: 300;
+}
+
+.light {
+    font-weight: 300;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px;
+    background-color: #f0f1ec;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--rouge);
+    border-radius: 5px;
+}
+
+.lighter {
     font-weight: lighter;
 }
+
+
+/**
+---------------------------------------------------- WRAPTOP -----------------------------------------------------------
+ */
+
+.wrapTop {
+
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    background-color: #e6e6e6;
+
+    .illu {
+        width: 300px;
+        padding-left: 10px;
+    }
+
+    div {
+        padding: 10px;
+    }
+
+}
+
 
 /**
 ---------------------------------------------------- BOUTONS -----------------------------------------------------------
@@ -327,8 +374,6 @@ nav {
 }
 
 
-
-
 /**
 ------------------------------------------------------ DARK MODE -------------------------------------------------------
  */
@@ -336,6 +381,17 @@ nav {
 .dark {
     background-color: #2b2b2b;
     color: white;
+
+    .wrapTop {
+        background-color: #232323;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        border-radius: 5px;
+        background-color: #111;
+    }
+
 }
 
 
@@ -343,14 +399,39 @@ nav {
 --------------------------------------------------- RESPONSIVE ---------------------------------------------------------
  */
 
+@media (max-width: 1000px) {
+    .wrapTop {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 95%;
+        margin: auto;
+
+        .illu {
+            width: 200px !important;
+            padding-left: 0;
+        }
+
+        div {
+            padding: 0;
+        }
+
+    }
+}
+
 @media (max-width: 850px) {
 
     .switchLight {
         top: 10px;
     }
 
+    .other {
+        padding-bottom: 70px;
+    }
+
     nav {
-        position: absolute;
+        position: fixed;
         width: 90%;
         left: 50%;
         transform: translateX(-50%);

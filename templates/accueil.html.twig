@@ -9,5 +9,22 @@
 
 {% block page_content %}
     <h1 class="onglet1">Accueil</h1>
-    <p>Bienvenue sur le site TimePills</p>
+
+    <div class="wrapTop">
+        <img src="{{ asset('img/welcome.png') }}" alt="illustration d'accueil">
+
+        <div>
+            {% if not is_granted('ROLE_USER') %}
+                <h2>Bonjour !</h2>
+                <h2>Bienvenue sur <span class="redText">TimePills</span>, l'outil de suivi pour vos médicaments du
+                    quotidien !
+                </h2>
+                <h4 class="light"><span class="redText">Connectez-vous</span> ou <span class="redText">créez un compte</span> pour accéder à votre espace !</h4>
+            {% else %}
+                <h2>Bonjour {{ app.user.prenom }} !</h2>
+                <h4 class="light">Vous pouvez accéder à votre espace personnel, et <span class="redText">gérer vos médicaments</span>, pour savoir quand les prendre !</h4>
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock %}
