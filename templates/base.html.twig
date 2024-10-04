@@ -40,7 +40,7 @@
                 <p>Inscription</p></a>
 
         {% else %}
-            <a href="{{ asset('medicaments') }}" class="redirection {% if page_actuelle == 'Medicaments' %}active{% endif %}"><img
+            <a href="{{ path('medicaments') }}" class="redirection {% if page_actuelle == 'Medicaments' %}active{% endif %}"><img
                         src="{{ asset('img/pills.png') }}" alt="">
                 <p>Médicaments</p></a>
             <a href="" class="redirection {% if page_actuelle == 'Profil' %}active{% endif %}"><img

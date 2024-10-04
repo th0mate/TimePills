@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}
+    TimePills | Médicaments
+{% endblock %}
+
+{% block cssSupplementaire %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/medicaments.css') }}">{% endblock %}
+
+{% block page_content %}
+    <h1 class="onglet1">Mes médicaments</h1>
+
+    <div class="wrapTop">
+        <img class="illu" src="{{ asset('img/medicaments.png') }}" alt="">
+
+        <div>
+            <h2 class="redText">Bonjour 👋 !</h2>
+            <h2>Re-bienvenue sur <span class="redText">TimePills</span>, l'outil de rappel des médicaments du quotidien ! </h2>
+            <h4 class="light"><span class="redText">Connectez-vous</span> pour accéder à votre espace, et gérer vos médicaments pour recevoir des notifications de rappel !</h4>
+        </div>
+    </div>
+
+{% endblock %}
