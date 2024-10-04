@@ -108,4 +108,14 @@ class UtilisateurController extends AbstractController
         }
         return new Response('false');
     }
+
+    /**
+     * Route pour afficher la page de ses médicaments
+     */
+    #[Route('utilisateur/medicaments', name: 'medicaments', methods: 'GET')]
+    public function afficherMedicaments(): Response
+    {
+        $medicaments = $this->getUser()->getPilules();
+        return $this->render('utilisateur/medicaments.html.twig', ['page_actuelle' => 'Medicaments', 'medicaments' => $medicaments]);
+    }
 }

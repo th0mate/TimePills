@@ -129,14 +129,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPilule(): ?Pilule
+
+    public function getPilules(): Collection
     {
-        return $this->pilule;
+        return $this->pilules;
     }
 
-    public function setPilule(?Pilule $pilule): static
+    public function addPilule(Pilule $pilule): static
     {
-        $this->pilule = $pilule;
+        if (!$this->pilules->contains($pilule)) {
+            $this->pilules[] = $pilule;
+            $pilule->setProprietaire($this);
+        }
 
         return $this;
     }

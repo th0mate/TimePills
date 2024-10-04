@@ -84,21 +84,16 @@ class Pilule
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): static
+    public function setProprietaire(?Utilisateur $utilisateur): static
     {
-        // unset the owning side of the relation if necessary
-        if ($utilisateur === null && $this->utilisateur !== null) {
-            $this->utilisateur->setPilule(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($utilisateur !== null && $utilisateur->getPilule() !== $this) {
-            $utilisateur->setPilule($this);
-        }
-
         $this->utilisateur = $utilisateur;
 
         return $this;
+    }
+
+    public function getProprietaire(): ?Utilisateur
+    {
+        return $this->proprietaire;
     }
 
     public function getNbPilulesPlaquette(): ?int
