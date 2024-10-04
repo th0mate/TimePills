@@ -26,6 +26,11 @@ class Pilule
     #[ORM\OneToOne(mappedBy: 'pilule', cascade: ['persist', 'remove'])]
     private ?Utilisateur $utilisateur = null;
 
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'pilules')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    private ?Utilisateur $proprietaire = null;
+
+
     #[ORM\Column(nullable: true)]
     private ?int $nbPilulesPlaquette = null;
 
