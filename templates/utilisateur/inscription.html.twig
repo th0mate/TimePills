@@ -9,6 +9,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/formulaires.css') }}">
 {% endblock %}
 
+{% block jsSupplementaire %}
+    <script type="text/javascript" src="{{ asset('js/inscription.js') }}" defer></script>
+{% endblock %}
+
 
 {% block page_content %}
     <div class="onglet1">
@@ -39,7 +43,7 @@
     </div>
     <div>
         <div class="inputbox">
-            {{ form_widget(formInscription.adresseMail, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
+            {{ form_widget(formInscription.adresseMail, {'attr': {'class': 'input', 'placeholder': ' ', 'id': 'adresseMail'}}) }}
             {# {{ form_label(formInscription.adresseEmail) }} #}
             <label for="adresseMail">Adresse Email</label>
             <img class="success" src="{{ asset('img/success.png') }}" alt="">

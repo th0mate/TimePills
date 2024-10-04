@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use App\Repository\UtilisateurRepository;
 use App\Service\FlashMessageHelperInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +19,8 @@ class UtilisateurController extends AbstractController
 
     public function __construct(
         private FlashMessageHelperInterface $flashMessageHelperInterface,
-        private UtilisateurManagerInterface $utilisateurManagerInterface
+        private UtilisateurManagerInterface $utilisateurManagerInterface,
+        private UtilisateurRepository $utilisateurRepository
     ) {
     }
 
@@ -85,12 +87,25 @@ class UtilisateurController extends AbstractController
             return $this->redirectToRoute('TimePills');
         }
 
-        //TODO messages flash après connexion et déconnexion
+        //TODO messages flash après connexion et déconnexion et puis voilà
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('utilisateur/connexion.html.twig', ['page_actuelle' => 'Connexion', 'last_username' => $lastUsername]);
     }
 
+    /**
+     * Route exposée permettant de vérifier si une adresse mail est déjà prise dans la bd ou non
+     * @param Request $request
+     * @return Response : true si l'adresse mail n'est pas prise, false sinon
+     */
+    #[Route('/verifier_email', name: 'verifier_email', options: ["expose" => true], methods: ['POST'])]
+    public function verifierEmail(Request $request): Response
+    {
+        $email = $request->get("adresseMail");
+        $utilisateur = $this->utilisateurRepository->findOneBy(['adresseMail' => $email]);
 
-
-
+        if ($utilisateur) {
+            return new Response('true');
+        }
+        return new Response('false');
+    }
 }
