@@ -23,11 +23,14 @@ class Pilule
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $tempsMaxi = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $calendrier = null;
-
     #[ORM\OneToOne(mappedBy: 'pilule', cascade: ['persist', 'remove'])]
     private ?Utilisateur $utilisateur = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $nbPilulesPlaquette = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $nbJoursPause = null;
 
     public function getId(): ?int
     {
@@ -70,17 +73,6 @@ class Pilule
         return $this;
     }
 
-    public function getCalendrier(): ?string
-    {
-        return $this->calendrier;
-    }
-
-    public function setCalendrier(?string $calendrier): static
-    {
-        $this->calendrier = $calendrier;
-
-        return $this;
-    }
 
     public function getUtilisateur(): ?Utilisateur
     {
@@ -100,6 +92,30 @@ class Pilule
         }
 
         $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getNbPilulesPlaquette(): ?int
+    {
+        return $this->nbPilulesPlaquette;
+    }
+
+    public function setNbPilulesPlaquette(?int $nbPilulesPlaquette): static
+    {
+        $this->nbPilulesPlaquette = $nbPilulesPlaquette;
+
+        return $this;
+    }
+
+    public function getNbJoursPause(): ?int
+    {
+        return $this->nbJoursPause;
+    }
+
+    public function setNbJoursPause(?int $nbJoursPause): static
+    {
+        $this->nbJoursPause = $nbJoursPause;
 
         return $this;
     }
