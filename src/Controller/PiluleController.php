@@ -27,7 +27,7 @@ class PiluleController extends AbstractController
     #[Route('/creerPilule', name: 'creerPilule', methods: ['GET', 'POST'])]
     public function creerPilule(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(PiluleType::class, new Pilule(), ['method' => 'POST', 'action' => $this->generateUrl('medicaments')]);
+        $form = $this->createForm(PiluleType::class, new Pilule(), ['method' => 'POST', 'action' => $this->generateUrl('creerPilule')]);
         $form->handleRequest($request);
         $this->flashMessageHelperInterface->addFormErrorsAsFlash($form);
 

@@ -22,10 +22,6 @@ class Pilule
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $tempsMaxi = null;
-
-    #[ORM\OneToOne(mappedBy: 'pilule', cascade: ['persist', 'remove'])]
-    private ?Utilisateur $utilisateur = null;
-
     #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'pilules')]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Utilisateur $proprietaire = null;
@@ -84,12 +80,12 @@ class Pilule
 
     public function getUtilisateur(): ?Utilisateur
     {
-        return $this->utilisateur;
+        return $this->proprietaire;
     }
 
     public function setProprietaire(?Utilisateur $utilisateur): static
     {
-        $this->utilisateur = $utilisateur;
+        $this->proprietaire = $utilisateur;
 
         return $this;
     }

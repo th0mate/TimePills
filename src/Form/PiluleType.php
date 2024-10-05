@@ -19,17 +19,26 @@ class PiluleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle', TextType::class)
+            ->add('libelle', TextType::class, [
+                'required' => true,
+            ])
             ->add('heureDePrise', TimeType::class, [
                 'widget' => 'single_text',
+                'required' => true,
             ])
             ->add('tempsMaxi', TimeType::class, [
                 'widget' => 'single_text',
+                'required' => true,
             ])
-            ->add('nbPilulesPlaquette', IntegerType::class)
-            ->add('nbJoursPause', IntegerType::class)
+            ->add('nbPilulesPlaquette', IntegerType::class, [
+                'required' => false,
+            ])
+            ->add('nbJoursPause', IntegerType::class, [
+                'required' => false,
+            ])
             ->add('dateDerniereReprise', DateType::class, [
                 'widget' => 'single_text',
+                'required' => false,
             ])
             ->add('creation', SubmitType::class);
     }

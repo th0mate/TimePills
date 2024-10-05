@@ -87,7 +87,6 @@ class UtilisateurController extends AbstractController
             return $this->redirectToRoute('TimePills');
         }
 
-        //TODO messages flash après connexion et déconnexion et puis voilà
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('utilisateur/connexion.html.twig', ['page_actuelle' => 'Connexion', 'last_username' => $lastUsername]);
     }
@@ -112,7 +111,7 @@ class UtilisateurController extends AbstractController
     /**
      * Route pour afficher la page de ses médicaments
      */
-    #[Route('utilisateur/medicaments', name: 'medicaments', methods: 'GET')]
+    #[Route('utilisateur/medicaments', name: 'medicaments', methods: ['GET', 'POST'])]
     public function afficherMedicaments(): Response
     {
         $medicaments = $this->getUser()->getPilules();
