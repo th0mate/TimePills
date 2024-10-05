@@ -42,6 +42,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private ?bool $veutNotification = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +156,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function isVeutNotification(): ?bool
+    {
+        return $this->veutNotification;
+    }
+
+    public function setVeutNotification(bool $veutNotification): static
+    {
+        $this->veutNotification = $veutNotification;
 
         return $this;
     }

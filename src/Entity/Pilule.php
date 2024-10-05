@@ -37,6 +37,9 @@ class Pilule
     #[ORM\Column(nullable: true)]
     private ?int $nbJoursPause = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateDerniereReprise = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +119,18 @@ class Pilule
     public function setNbJoursPause(?int $nbJoursPause): static
     {
         $this->nbJoursPause = $nbJoursPause;
+
+        return $this;
+    }
+
+    public function getDateDerniereReprise(): ?\DateTimeInterface
+    {
+        return $this->dateDerniereReprise;
+    }
+
+    public function setDateDerniereReprise(?\DateTimeInterface $dateDerniereReprise): static
+    {
+        $this->dateDerniereReprise = $dateDerniereReprise;
 
         return $this;
     }
