@@ -4,3 +4,36 @@
         width: 200px;
     }
 }
+
+/**
+------------------------------------------ BOUTONS CALENDRIER ----------------------------------------------------------
+ */
+
+.fc .fc-button {
+    background-color: #FF5959;
+    border: 1px solid transparent;
+    transition: 0.5s ease-in-out;
+}
+
+.fc .fc-button:hover {
+    background-color: transparent;
+    border: 1px solid #FF5959;
+    color: #FF5959;
+}
+
+.fc .fc-button.fc-today-button {
+    background-color: #FF5959;
+    border: 1px solid transparent;
+    transition: 0.5s ease-in-out;
+}
+
+.fc .fc-button.fc-today-button:hover {
+    background-color: transparent;
+    border: 1px solid #FF5959;
+    color: #FF5959;
+}
+
+.fc-event-wrap {
+    white-space: normal;
+    word-wrap: break-word;
+}

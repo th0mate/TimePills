@@ -6,6 +6,10 @@
 
 {% block cssSupplementaire %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/medicaments.css') }}">{% endblock %}
+{% block jsSupplementaire %}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script defer type="text/javascript" src="{{ asset('js/calendrier.js') }}"></script>
+{% endblock %}
 
 {% block page_content %}
     <h1 class="onglet1">Mes médicaments</h1>
@@ -15,9 +19,13 @@
 
         <div>
             <h2 class="redText">Bonjour 👋 !</h2>
-            <h2>Re-bienvenue sur <span class="redText">TimePills</span>, l'outil de rappel des médicaments du quotidien ! </h2>
-            <h4 class="light"><span class="redText">Connectez-vous</span> pour accéder à votre espace, et gérer vos médicaments pour recevoir des notifications de rappel !</h4>
+            <h2>Re-bienvenue sur <span class="redText">TimePills</span>, l'outil de rappel des médicaments du quotidien
+                ! </h2>
+            <h4 class="light"><span class="redText">Connectez-vous</span> pour accéder à votre espace, et gérer vos
+                médicaments pour recevoir des notifications de rappel !</h4>
         </div>
     </div>
+
+    <div id="calendar"></div>
 
 {% endblock %}
