@@ -18,14 +18,40 @@
         <img class="illu" src="{{ asset('img/medicaments.png') }}" alt="">
 
         <div>
-            <h2 class="redText">Bonjour 👋 !</h2>
-            <h2>Re-bienvenue sur <span class="redText">TimePills</span>, l'outil de rappel des médicaments du quotidien
-                ! </h2>
-            <h4 class="light"><span class="redText">Connectez-vous</span> pour accéder à votre espace, et gérer vos
-                médicaments pour recevoir des notifications de rappel !</h4>
+            <h2 class="redText">Gérez vos médicaments 💊</h2>
+            <h2>Ajoutez et gérez vos <span class="redText">médicaments</span> pour ne plus oublier de les prendre ! </h2>
+            <h4 class="light">Profitez du <span class="redText">calendrier</span> pour organiser vos prises de traitements.</h4>
         </div>
     </div>
 
+    <div class="wrapMedocs">
     <div id="calendar"></div>
+
+    <div class="medicaments">
+        <h2 class="redText">Mes médicaments</h2>
+
+        <a href="" class="medicament">
+            <img src="{{ asset('img/ajouterMedicament.png') }}" alt="">
+            <div style="padding-right: 10px; padding-left: 10px">
+                <h3 class="redText">Ajouter un médicament</h3>
+                <h4 class="light">Ajoutez un médicament à votre liste pour recevoir des rappels de prise.</h4>
+            </div>
+        </a>
+
+        <div class="medicament">
+            <img src="{{ asset('img/medicament.png') }}" alt="">
+            <div>
+                <h3 class="redText">DailyGé</h3>
+                <h4 class="light">Prochaine prise à <span class="redText">22h.</span></h4>
+                <h4 class="light">Prochaine pause dans <span class="redText">7 jours.</span></h4>
+            </div>
+            <div>
+                <a href="" class="bouton">Pris</a>
+            </div>
+        </div>
+
+        </a>
+
+    </div>
 
 {% endblock %}

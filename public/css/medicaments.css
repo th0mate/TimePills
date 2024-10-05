@@ -5,6 +5,10 @@
     }
 }
 
+body {
+    padding-bottom: 50px;
+}
+
 /**
 ------------------------------------------ BOUTONS CALENDRIER ----------------------------------------------------------
  */
@@ -36,4 +40,162 @@
 .fc-event-wrap {
     white-space: normal;
     word-wrap: break-word;
+}
+
+.fc-toolbar-chunk {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding: 10px;
+}
+
+
+/**
+------------------------------------------------- WRAP -----------------------------------------------------------------
+ */
+
+.wrapMedocs {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+
+    #calendar {
+        width: 48%;
+    }
+
+    .medicaments {
+        width: 48%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        a.medicament {
+            border: 1px solid transparent;
+        }
+
+        a.medicament:hover {
+            border: 1px solid #FF5959;
+        }
+
+        .medicament {
+            width: 100%;
+            min-height: 100px;
+            border-radius: 10px;
+            background-color: #e6e6e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+            margin-bottom: 15px;
+            color: black;
+            text-decoration: none;
+
+            img {
+                width: 50px;
+                padding: 10px;
+            }
+
+            div {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                align-content: flex-start;
+
+                * {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .bouton {
+                    margin-right: 10px;
+                    width: 100px;
+                    height: 30px;
+                }
+            }
+        }
+
+    }
+
+}
+
+
+.dark {
+    .medicament {
+        background-color: #232323!important;
+        color: white!important;
+    }
+}
+
+
+/**
+------------------------------------------------- RESPONSIVE -----------------------------------------------------------
+ */
+
+@media (max-width: 1100px) {
+    .wrapMedocs {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 95%;
+        margin: auto;
+
+        #calendar {
+            width: 95%;
+            padding-bottom: 50px;
+        }
+
+        .medicaments {
+            width: 95%;
+
+            .medicament {
+                width: 60%;
+            }
+        }
+    }
+}
+
+@media (max-width: 930px) {
+    .wrapMedocs {
+        #calendar {
+            width: 98%;
+        }
+
+        .medicaments {
+            width: 98%;
+
+            .medicament {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .fc-toolbar-title {
+        font-size: 1.2em!important;
+        color: var(--rouge)!important;
+    }
+
+    .fc-event-title {
+        font-size: 0.8em!important;
+    }
+
+    .medicament {
+        h3 {
+            font-size: 1em;
+        }
+
+        h4 {
+            font-size: 0.8em;
+        }
+    }
 }
