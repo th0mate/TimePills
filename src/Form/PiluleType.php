@@ -4,6 +4,11 @@ namespace App\Form;
 
 use App\Entity\Pilule;
 use App\Entity\Utilisateur;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,22 +19,13 @@ class PiluleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle')
-            ->add('heureDePrise', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('tempsMaxi', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('nbPilulesPlaquette')
-            ->add('nbJoursPause')
-            ->add('dateDerniereReprise', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('proprietaire', EntityType::class, [
-                'class' => Utilisateur::class,
-                'choice_label' => 'id',
-            ])
+            ->add('libelle', TextType::class)
+            ->add('heureDePrise', TimeType::class)
+            ->add('tempsMaxi', TimeType::class)
+            ->add('nbPilulesPlaquette', IntegerType::class)
+            ->add('nbJoursPause', IntegerType::class)
+            ->add('dateDerniereReprise', DateType::class)
+            ->add('creation', SubmitType::class);
         ;
     }
 
