@@ -19,8 +19,10 @@
 
         <div>
             <h2 class="redText">Gérez vos médicaments 💊</h2>
-            <h2>Ajoutez et gérez vos <span class="redText">médicaments</span> pour ne plus oublier de les prendre ! </h2>
-            <h4 class="light">Profitez du <span class="redText">calendrier</span> pour organiser vos prises de traitements.</h4>
+            <h2>Ajoutez et gérez vos <span class="redText">médicaments</span> pour ne plus oublier de les prendre !
+            </h2>
+            <h4 class="light">Profitez du <span class="redText">calendrier</span> pour organiser vos prises de
+                traitements.</h4>
         </div>
     </div>
 
@@ -38,19 +40,26 @@
             </div>
         </a>
 
-        <div class="medicament">
-            <img src="{{ asset('img/medicament.png') }}" alt="">
-            <div>
-                <h3 class="redText">DailyGé</h3>
-                <h4 class="light">Prochaine prise à <span class="redText">22h.</span></h4>
-                <h4 class="light">Prochaine pause dans <span class="redText">7 jours.</span></h4>
-            </div>
-            <div>
-                <a href="" class="bouton">Pris</a>
-            </div>
-        </div>
+        {% for medicament in medicaments %}
 
-        </a>
+            <div class="medicament">
+                <img src="{{ asset('img/medicament.png') }}" alt="">
+                <div>
+                    <h3 class="redText">{{ medicament.libelle }}</h3>
+                    <br>
+                    <h4 class="light">Prochaine prise à <span
+                                class="redText">{{ medicament.heureDePrise | date('H:i') }}</span>.</h4>
+                    {% if medicament.nbJoursPause != '' %}
+                        <h4 class="light">Prochaine pause dans <span
+                                    class="redText">{{ medicament.nbJoursPause }}</span> jours.</h4>
+                    {% endif %}
+                </div>
+                <div>
+                    <a href="" class="bouton">Pris</a>
+                </div>
+            </div>
+
+        {% endfor %}
 
     </div>
 

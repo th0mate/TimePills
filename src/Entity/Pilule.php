@@ -36,6 +36,9 @@ class Pilule
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDerniereReprise = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateTimeDernierePrise = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -127,6 +130,18 @@ class Pilule
     public function setDateDerniereReprise(?\DateTimeInterface $dateDerniereReprise): static
     {
         $this->dateDerniereReprise = $dateDerniereReprise;
+
+        return $this;
+    }
+
+    public function getDateTimeDernierePrise(): ?\DateTimeInterface
+    {
+        return $this->dateTimeDernierePrise;
+    }
+
+    public function setDateTimeDernierePrise(?\DateTimeInterface $dateTimeDernierePrise): static
+    {
+        $this->dateTimeDernierePrise = $dateTimeDernierePrise;
 
         return $this;
     }
