@@ -20,13 +20,18 @@ class PiluleType extends AbstractType
     {
         $builder
             ->add('libelle', TextType::class)
-            ->add('heureDePrise', TimeType::class)
-            ->add('tempsMaxi', TimeType::class)
+            ->add('heureDePrise', TimeType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('tempsMaxi', TimeType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('nbPilulesPlaquette', IntegerType::class)
             ->add('nbJoursPause', IntegerType::class)
-            ->add('dateDerniereReprise', DateType::class)
+            ->add('dateDerniereReprise', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('creation', SubmitType::class);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

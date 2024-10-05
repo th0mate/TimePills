@@ -50,6 +50,10 @@ form:not(.element, .recherche) > div:not(.wrapSwitch, .wrapSubmit) {
 
 }
 
+.small {
+    width: 150px;
+}
+
 
 .inputbox label {
     position: absolute;
@@ -86,12 +90,33 @@ form:not(.element, .recherche) > div:not(.wrapSwitch, .wrapSubmit) {
     color: black;
 }
 
+
 .wrapSwitch {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     align-content: center;
     padding-left: 10px;
+}
+
+/* Agrandir les icônes de calendrier et d'horloge */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--rouge);
+        border-radius: 50%;
+    }
+}
+
+/* Mode sombre */
+.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }
 
 
@@ -133,7 +158,7 @@ form:not(.element, .recherche) > div:not(.wrapSwitch, .wrapSubmit) {
 }
 
 .switch:checked {
-    background-color: var(--rouge);
+    background-color: #23a24d;
 }
 
 .switch:checked:before {

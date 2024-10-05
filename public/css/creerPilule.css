@@ -1,0 +1,21 @@
+.wrapTop {
+    margin-bottom: 20px;
+    img {
+        width: 200px;
+    }
+}
+
+body {
+    padding-bottom: 50px;
+}
+
+form {
+
+    .inputbox {
+        margin-top: 50px;
+    }
+
+    .wrapSubmit {
+        padding-top: 20px;
+    }
+}

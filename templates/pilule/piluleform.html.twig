@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block cssSupplementaire %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/medicaments.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/creerPilule.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/formulaires.css') }}">{% endblock %}
 {% block jsSupplementaire %}
     <script defer type="text/javascript" src="{{ asset('js/creerMedicament.js') }}"></script>
@@ -36,45 +36,45 @@
         <p class="help-input-form">Entre 4 et 50 caractères.</p>
     </div>
     <div>
-        <div class="inputbox">
+        <div class="inputbox small">
             {{ form_widget(formPilule.heureDePrise, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
             <label for="heureDePrise">Heure de prise</label>
         </div>
         <p class="help-input-form">Heure de prise habituelle du médicament.</p>
     </div>
     <div>
-        <div class="inputbox">
+        <div class="inputbox small">
             {{ form_widget(formPilule.tempsMaxi, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
             <label for="tempsMaxi">Délai maximal</label>
         </div>
-        <p class="help-input-form">Délai maximal du traitement en cas d'oubli, en heures.</p>
+        <p class="help-input-form">Délai maximal</p>
     </div>
 
     <div class="wrapSwitch">
         <label for="avecPause">Traitement devant être pris avec des pauses d'au moins un jour :</label>
-        <input type="checkbox" id="avecPause" name="avecPause" class="switch">
+        <input type="checkbox" id="avecPause" name="avecPause" class="switch" oninput="changerDisplayAvecPause()">
     </div>
 
-    <div>
-        <div class="inputbox">
+    <div class="avecPause">
+        <div class="inputbox small">
             {{ form_widget(formPilule.nbPilulesPlaquette, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
-            <label for="nbPilulesPlaquette">Nombre de pilules dans une plaquette</label>
+            <label for="nbPilulesPlaquette">Nombre de pilules</label>
         </div>
         <p class="help-input-form">Nombre de pilules dans une plaquette, devant être pris entre chaque pause.</p>
     </div>
 
-    <div>
-        <div class="inputbox">
+    <div class="avecPause">
+        <div class="inputbox small">
             {{ form_widget(formPilule.nbJoursPause, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
-            <label for="nbJoursPause">Nombre de jours de pause</label>
+            <label for="nbJoursPause">Durée de pause</label>
         </div>
         <p class="help-input-form">Nombre de jours de pause à respecter pour chaque pause.</p>
     </div>
 
-    <div>
-        <div class="inputbox">
+    <div class="avecPause">
+        <div class="inputbox small">
             {{ form_widget(formPilule.dateDerniereReprise, {'attr': {'class': 'input', 'placeholder': ' '}}) }}
-            <label for="dateDerniereReprise">Date de dernière reprise du traitement</label>
+            <label for="dateDerniereReprise">Dernière reprise</label>
         </div>
         <p class="help-input-form">Date de la dernière reprise du traitement après la dernière pause.</p>
     </div>
