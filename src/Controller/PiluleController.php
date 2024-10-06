@@ -51,4 +51,14 @@ class PiluleController extends AbstractController
             'page_actuelle' => 'Medicaments'
         ]);
     }
+
+
+    #[Route('/infosPilule', name: 'infosPilule', options: ["expose" => true], methods: ['POST'])]
+    public function infosPilule(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $idPilule = $request->request->get('idPilule');
+        $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
+
+        return $this->json($pilule);
+    }
 }
