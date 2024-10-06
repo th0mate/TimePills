@@ -44,7 +44,7 @@ class Pilule
     private ?\DateTimeInterface $dateDerniereReprise = null;
 
     #[Groups('pilule:read')]
-    #[ORM\OneToMany(mappedBy: 'pilule', targetEntity: DatePrise::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: DatePrise::class, mappedBy: 'pilule', cascade: ['persist', 'remove'])]
     private Collection $datesPrises;
 
     public function __construct()
@@ -185,5 +185,19 @@ class Pilule
 
         return date('d/m', strtotime($dateDerniereReprise . ' + ' . $nbPilulesPlaquette . ' days'));
 
+    }
+
+
+    public function getDateTimeDernierePrise(): string
+    {
+        $dateDernierePrise = 'N/A';
+        foreach ($this->datesPrises as $datePrise) {
+            if ($datePrise->getDatePrise() > $dateDernierePrise) {
+                $dateDernierePrise = $datePrise->getDatePrise();
+            }
+        }
+
+        //on converti en string et on return
+        return $dateDernierePrise->format('d/m/Y H:i');
     }
 }

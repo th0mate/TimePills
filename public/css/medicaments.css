@@ -134,20 +134,24 @@ body {
                 }
 
                 .check {
-                    margin-right: 10px;
                     width: 150px;
                     height: 30px;
                     background-color: #3c763d;
                     color: white;
                     border-radius: 5px;
+                    padding: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    align-content: center;
                 }
             }
 
-            div:first-child:not(.bouton) {
+            div:first-child:not(.bouton, .check) {
                 width: 150px;
             }
 
-            div:last-child:not(.bouton) {
+            div:last-child:not(.bouton, .check) {
                 padding-left: 30px;
             }
         }

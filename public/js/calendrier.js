@@ -1,6 +1,7 @@
+let calendar;
 document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'fr',
         buttonText: {
@@ -81,7 +82,6 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
             } else {
                 let date = dateDerniereReprise;
                 for (let i = 0; i < pilule.nbPilulesPlaquette; i++) {
-                    //la date d'aujourd'hui sans les heures
                     if (date < new Date(new Date().setHours(0, 0, 0, 0))) {
                         const event = {
                             title: pilule.libelle + ' pris',
@@ -136,25 +136,43 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
             }
         }
 
-        /*
-        //si 'datesDernieresPrises' est vide, on ne fait rien
+        const URLDatesPrises = Routing.generate('prisesPilule', {"idPilule": idPilule});
+        const responseDatesPrises = await fetch(URLDatesPrises, {method: "POST"});
+        pilule.datesPrises = await responseDatesPrises.json();
+
+        console.log(pilule.datesPrises);
+
+
         if (pilule.datesPrises.length > 0) {
-            //pour chaque date dans datesDernieresPrises, on ajoute un événement 'Pilule pris' dans le calendrier
+
             for (let date of pilule.datesPrises) {
+                //exemple d'une ligne du tableau :
+                //date = {datePrise: '2024-10-05T11:29:35+00:00'}
+
+                const dateUtile = new Date(date.datePrise);
+                //heure au format hh:mm
+                const heure = dateUtile.getHours().toString().padStart(2, '0') + ':' + dateUtile.getMinutes().toString().padStart(2, '0');
+
+                const events = calendar.getEvents();
+
+                events.forEach(event => {
+                    const eventDate = new Date(event.start.setHours(0, 0, 0, 0));
+                    const utileDate = new Date(dateUtile.setHours(0, 0, 0, 0));
+                    if (event.title.includes(pilule.libelle) && eventDate.getTime() === utileDate.getTime()) {
+                        event.remove();
+                    }
+                });
+
                 const event = {
-                    title: 'Pilule pris',
-                    start: date,
+                    title: `${pilule.libelle} pris à ${heure}`,
+                    start: dateUtile,
                     allDay: true
                 };
                 calendar.addEvent(event);
             }
-        } else {
-            //TODO : ne pas afficher les 'pris' si ils sont déjà présents en tant qu'événements sur le calendrier !
-            //TODO : les 'pris' remplacent les 'à prendre' si ils sont présents en tant qu'événements sur le calendrier pour le même libellé et le même jour !
-            //TODO : mettre l'heure de prise pour chaque jour où la pilule est prise
         }
 
-         */
+
 
 
     }
@@ -172,10 +190,6 @@ async function prendrePiluleCalendrier(idPilule) {
     // Récupère la date d'aujourd'hui
     let date = new Date(new Date().setHours(0, 0, 0, 0));
 
-    // Récupère le calendrier
-    const calendarEl = document.getElementById('calendar');
-    const calendar = FullCalendar.getCalendar(calendarEl);
-
     // Supprime l'événement correspondant à la pilule à prendre
     const events = calendar.getEvents();
     events.forEach(event => {
@@ -184,9 +198,10 @@ async function prendrePiluleCalendrier(idPilule) {
         }
     });
 
-    // Ajoute un nouvel événement indiquant que la pilule a été prise
+    const heure = new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0');
+
     const newEvent = {
-        title: pilule.libelle + ' pris',
+        title: pilule.libelle + ' pris à ' + heure,
         start: date,
         allDay: true
     };

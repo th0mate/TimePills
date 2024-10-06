@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 class DatePrise
@@ -12,6 +13,7 @@ class DatePrise
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
+    #[Groups('pilule:read')]
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $datePrise = null;
 

@@ -58,16 +58,28 @@
 
 
                     {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
-                        {% set lastDatePrise = medicament.datesPrises[0].datePrise %}
+                        {% set lastDatePrise = medicament.getDateTimeDernierePrise %}
                         {% if lastDatePrise | date('d/m/Y') == 'now'|date_modify('-1 day')|date('d/m/Y') %}
-                            <h4 class="light">Dernière prise <span class="redText">hier</span> à <span class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
+                            <h4 class="light">Dernière prise <span class="redText">hier</span> à <span
+                                        class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
                         {% else %}
-                            <h4 class="light">Dernière prise le <span class="redText">{{ lastDatePrise | date('d/m/Y') }}</span>.</h4>
+                            <h4 class="light">Dernière prise le <span
+                                        class="redText">{{ lastDatePrise | date('m/d') }}</span>.</h4>
                         {% endif %}
                     {% endif %}
                 </div>
                 <div>
-                    <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">Prendre</div>
+                    {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
+                        {% set dateDernierePrise = medicament.getDateTimeDernierePrise %}
+                        {# si le médicament a bien été pris aujourd'hui #}
+                        {% if dateDernierePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
+                            <div class="check">✅ Pris
+                            </div>
+                        {% else %}
+                            <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">💊 Prendre
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
 

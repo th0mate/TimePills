@@ -61,11 +61,24 @@ class PiluleController extends AbstractController
     {
         $idPilule = $request->get('idPilule');
         $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
+        $datesPrises = $pilule->getDatesPrises();
 
         $data = $serializer->serialize($pilule, 'json', ['groups' => 'pilule:read']);
-        dump($data);
 
-        return new Response($data, 200, ['Content-Type' => 'application/json']);
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
+    }
+
+    #[Route('/prisesPilules', name: 'prisesPilule', options: ["expose" => true], methods: ['POST'])]
+    public function prisesPilule(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+    {
+        $idPilule = $request->get('idPilule');
+        $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
+        $datesPrises = $pilule->getDatesPrises()->toArray();
+        dump($datesPrises);
+
+        $data = $serializer->serialize($datesPrises, 'json', ['groups' => 'pilule:read']);
+
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
     }
 
     #[Route('/prendrePilule', name: 'prendrePilule', options: ["expose" => true], methods: ['POST'])]
