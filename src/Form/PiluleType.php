@@ -39,6 +39,9 @@ class PiluleType extends AbstractType
             ->add('dateDerniereReprise', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false,
+                'attr' => [
+                    'max' => (new \DateTime())->format('Y-m-d')
+                ],
             ])
             ->add('creation', SubmitType::class);
     }
