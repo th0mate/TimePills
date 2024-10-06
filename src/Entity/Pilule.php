@@ -6,6 +6,7 @@ use App\Repository\PiluleRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: PiluleRepository::class)]
 class Pilule
@@ -15,6 +16,8 @@ class Pilule
     #[ORM\Column]
     private ?int $id = null;
 
+
+    #[Groups('pilule:read')]
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
@@ -27,16 +30,19 @@ class Pilule
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Utilisateur $proprietaire = null;
 
-
+    #[Groups('pilule:read')]
     #[ORM\Column(nullable: true)]
     private ?int $nbPilulesPlaquette = null;
 
+    #[Groups('pilule:read')]
     #[ORM\Column(nullable: true)]
     private ?int $nbJoursPause = null;
 
+    #[Groups('pilule:read')]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateDerniereReprise = null;
 
+    #[Groups('pilule:read')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private Collection $datesPrises;
 

@@ -64,11 +64,17 @@ body {
     width: 100%;
 
     #calendar {
-        width: 48%;
+        width: 52%;
+        height: auto;
+    }
+
+    .fc-view-harness, .fc-view-harness-active {
+        height: auto!important;
+        min-height: 500px;
     }
 
     .medicaments {
-        width: 48%;
+        width: 45%;
         height: 50%;
         display: flex;
         flex-direction: column;

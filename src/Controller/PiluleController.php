@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class PiluleController extends AbstractController
 {
@@ -53,12 +54,15 @@ class PiluleController extends AbstractController
     }
 
 
-    #[Route('/infosPilule', name: 'infosPilule', options: ["expose" => true], methods: ['POST'])]
-    public function infosPilule(Request $request, EntityManagerInterface $entityManager): Response
+    #[\Symfony\Component\Routing\Annotation\Route('/infosPilule', name: 'infosPilule', options: ["expose" => true], methods: ['POST'])]
+    public function infosPilule(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
-        $idPilule = $request->request->get('idPilule');
+        $idPilule = $request->get('idPilule');
         $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
 
-        return $this->json($pilule);
+        $data = $serializer->serialize($pilule, 'json', ['groups' => 'pilule:read']);
+        dump($data);
+
+        return new Response($data, 200, ['Content-Type' => 'application/json']);
     }
 }

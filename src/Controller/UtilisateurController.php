@@ -117,4 +117,15 @@ class UtilisateurController extends AbstractController
         $medicaments = $this->getUser()->getPilules();
         return $this->render('utilisateur/medicaments.html.twig', ['page_actuelle' => 'Medicaments', 'medicaments' => $medicaments]);
     }
+
+    #[Route('utilisateur/pilules', name: 'listeIdPilules', options: ["expose" => true], methods: ['POST'])]
+    public function getIdPilulesUtilisateur(): Response
+    {
+        $pilules = $this->getUser()->getPilules();
+        $idPilules = [];
+        foreach ($pilules as $pilule) {
+            $idPilules[] = $pilule->getId();
+        }
+        return $this->json($idPilules);
+    }
 }
