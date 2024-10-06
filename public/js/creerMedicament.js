@@ -9,3 +9,9 @@ function changerDisplayAvecPause() {
 }
 
 changerDisplayAvecPause();
+
+document.querySelector('#pilule_nbPilulesPlaquette').addEventListener('input', function () {
+    const valeur = this.value;
+    const inputNbJoursPause = document.querySelector('#pilule_nbJoursPause');
+    inputNbJoursPause.value = 28 - valeur;
+});

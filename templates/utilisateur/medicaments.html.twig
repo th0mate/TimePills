@@ -50,8 +50,20 @@
                     <h4 class="light">Prochaine prise à <span
                                 class="redText">{{ medicament.heureDePrise | date('H:i') }}</span>.</h4>
                     {% if medicament.nbJoursPause != '' %}
-                        <h4 class="light">Prochaine pause dans <span
-                                    class="redText">{{ medicament.nbJoursPause }}</span> jours.</h4>
+                        {# on calcule la date à laquelle sera la prochaine pause en nombre de jours #}
+                        <h4 class="light">Prochaine pause le <span
+                                    class="redText">{{ medicament.getDateProchainePause }}</span>.</h4>
+                    {% endif %}
+
+
+                    {% if medicament.datesPrises[0] is defined %}
+                        {% if medicament.datesPrises[0] | date('d/m/Y') == 'now'|date_modify('-1 day')|date('d/m/Y') %}
+                            <h4 class="light">Dernière prise <span class="redText">hier</span> à <span
+                                        class="redText">{{ medicament.datesPrises[0] | date('H:i') }}</span>.</h4>
+                        {% else %}
+                            <h4 class="light">Dernière prise le <span
+                                        class="redText">{{ medicament.datesPrises[0] | date('d/m/Y') }}</span>.</h4>
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div>

@@ -95,6 +95,7 @@ body {
             margin-bottom: 15px;
             color: black;
             text-decoration: none;
+            padding: 5px;
 
             img {
                 width: 50px;
@@ -112,7 +113,6 @@ body {
                 padding-right: 25px;
 
                 br {
-                    /* hauteur réduite */
                     line-height: 0.5;
                 }
 
@@ -123,9 +123,17 @@ body {
 
                 .bouton {
                     margin-right: 10px;
-                    width: 200px;
+                    width: 150px;
                     height: 30px;
                 }
+            }
+
+            div:first-child {
+                width: 150px;
+            }
+
+            div:last-child {
+                padding-left: 30px;
             }
         }
 

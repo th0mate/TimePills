@@ -146,4 +146,17 @@ class Pilule
 
         return $this;
     }
+
+    public function getDateProchainePause(): string
+    {
+        if ($this->dateDerniereReprise === null || $this->nbPilulesPlaquette === null) {
+            return 'N/A';
+        }
+
+        $dateDerniereReprise = $this->dateDerniereReprise->format('Y-m-d');
+        $nbPilulesPlaquette = $this->nbPilulesPlaquette;
+
+        return date('d/m', strtotime($dateDerniereReprise . ' + ' . $nbPilulesPlaquette . ' days'));
+
+    }
 }
