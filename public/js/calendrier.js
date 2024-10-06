@@ -55,7 +55,6 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
             }
         } else {
             const dateDerniereReprise = new Date(pilule.dateDerniereReprise);
-            //TODO : ajouter un max au jour d'aujourd'hui dans le HTML pour la date DerniereReprise pour ne pas mettre cette date dans le futur !
 
             if (dateDerniereReprise === new Date(new Date().setHours(0, 0, 0, 0))) {
 
