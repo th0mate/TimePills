@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PiluleRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,7 +38,7 @@ class Pilule
     private ?\DateTimeInterface $dateDerniereReprise = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $dateTimeDernierePrise = null;
+    private Collection $datesPrises;
 
     public function getId(): ?int
     {
@@ -136,12 +137,12 @@ class Pilule
 
     public function getDateTimeDernierePrise(): ?\DateTimeInterface
     {
-        return $this->dateTimeDernierePrise;
+        return end($this->datesPrises);
     }
 
-    public function setDateTimeDernierePrise(?\DateTimeInterface $dateTimeDernierePrise): static
+    public function addDatePrise(?\DateTimeInterface $dateTimeDernierePrise): static
     {
-        $this->dateTimeDernierePrise = $dateTimeDernierePrise;
+        $this->datesPrises[] = $dateTimeDernierePrise;
 
         return $this;
     }
