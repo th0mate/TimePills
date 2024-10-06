@@ -72,7 +72,7 @@
                     {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
                         {% set dateDernierePrise = medicament.getDateTimeDernierePrise %}
                         {# si le médicament a bien été pris aujourd'hui #}
-                        {% if dateDernierePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
+                        {% if dateDernierePrise | date('d/m/Y') == 'now'|date('m/d/Y') %}
                             <div class="check">✅ Pris
                             </div>
                         {% else %}
