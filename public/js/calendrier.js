@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonText: {
             today: 'Aujourd\'hui'
         },
-        eventDidMount: function(info) {
+        eventDidMount: function (info) {
             if (info.event.title.includes('pris')) {
                 info.el.style.backgroundColor = '#258700';
             } else if (info.event.title.includes('à prendre')) {
@@ -40,12 +40,6 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
         let URLGetInfosPilule = Routing.generate('infosPilule', {"idPilule": idPilule});
         const response = await fetch(URLGetInfosPilule, {method: "POST"});
         const pilule = await response.json();
-        console.log(pilule);
-
-        /**
-         * Contenu du JSON :
-         * {libelle: 'DailyGé', nbPilulesPlaquette: 21, nbJoursPause: 7, dateDerniereReprise: '2024-09-17T00:00:00+00:00'}
-         */
 
         if (pilule.nbJoursPause === null) {
             let date = new Date();
@@ -76,7 +70,7 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
 
                 for (let i = 0; i < pilule.nbJoursPause; i++) {
                     const event = {
-                        title: 'Pause',
+                        title: 'Pause - ' + pilule.libelle,
                         start: dateDerniereReprise,
                         allDay: true
                     };
@@ -108,13 +102,37 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
 
                 for (let i = 0; i < pilule.nbJoursPause; i++) {
                     const event = {
-                        title: 'Pause',
+                        title: 'Pause - ' + pilule.libelle,
                         start: date,
                         allDay: true
                     };
                     calendar.addEvent(event);
                     date.setDate(date.getDate() + 1);
                 }
+
+                //on fait un cycle supplémentaire
+
+                for (let i = 0; i < pilule.nbPilulesPlaquette; i++) {
+                    const event = {
+                        title: pilule.libelle + ' à prendre',
+                        start: date,
+                        allDay: true
+                    };
+                    calendar.addEvent(event);
+                    date.setDate(date.getDate() + 1);
+                }
+
+                for (let i = 0; i < pilule.nbJoursPause; i++) {
+                    const event = {
+                        title: 'Pause - ' + pilule.libelle,
+                        start: date,
+                        allDay: true
+                    };
+                    calendar.addEvent(event);
+                    date.setDate(date.getDate() + 1);
+                }
+
+
             }
         }
 
@@ -133,10 +151,45 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
         } else {
             //TODO : ne pas afficher les 'pris' si ils sont déjà présents en tant qu'événements sur le calendrier !
             //TODO : les 'pris' remplacent les 'à prendre' si ils sont présents en tant qu'événements sur le calendrier pour le même libellé et le même jour !
+            //TODO : mettre l'heure de prise pour chaque jour où la pilule est prise
         }
 
          */
 
 
     }
+}
+
+/**
+ * Prend une pilule en supprimant l'événement du calendrier, et en ajoutant un événement '{libelle} pris'
+ */
+async function prendrePiluleCalendrier(idPilule) {
+    // Récupère les informations de la pilule
+    let URLGetInfosPilule = Routing.generate('infosPilule', {"idPilule": idPilule});
+    const response = await fetch(URLGetInfosPilule, {method: "POST"});
+    const pilule = await response.json();
+
+    // Récupère la date d'aujourd'hui
+    let date = new Date(new Date().setHours(0, 0, 0, 0));
+
+    // Récupère le calendrier
+    const calendarEl = document.getElementById('calendar');
+    const calendar = FullCalendar.getCalendar(calendarEl);
+
+    // Supprime l'événement correspondant à la pilule à prendre
+    const events = calendar.getEvents();
+    events.forEach(event => {
+        if (event.title === pilule.libelle + ' à prendre' && event.start.getTime() === date.getTime()) {
+            event.remove();
+        }
+    });
+
+    // Ajoute un nouvel événement indiquant que la pilule a été prise
+    const newEvent = {
+        title: pilule.libelle + ' pris',
+        start: date,
+        allDay: true
+    };
+    calendar.addEvent(newEvent);
+
 }

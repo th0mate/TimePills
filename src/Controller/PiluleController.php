@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\DatePrise;
 use App\Entity\Pilule;
 use App\Form\PiluleType;
 use App\Repository\UtilisateurRepository;
@@ -9,6 +10,7 @@ use App\Service\FlashMessageHelperInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -54,7 +56,7 @@ class PiluleController extends AbstractController
     }
 
 
-    #[\Symfony\Component\Routing\Annotation\Route('/infosPilule', name: 'infosPilule', options: ["expose" => true], methods: ['POST'])]
+    #[Route('/infosPilule', name: 'infosPilule', options: ["expose" => true], methods: ['POST'])]
     public function infosPilule(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
         $idPilule = $request->get('idPilule');
@@ -64,5 +66,22 @@ class PiluleController extends AbstractController
         dump($data);
 
         return new Response($data, 200, ['Content-Type' => 'application/json']);
+    }
+
+    #[Route('/prendrePilule', name: 'prendrePilule', options: ["expose" => true], methods: ['POST'])]
+    public function prendrePilule(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $idPilule = $request->get('idPilule');
+        $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
+
+        $datePrise = new DatePrise();
+        $datePrise->setDatePrise(new \DateTime());
+        $pilule->addDatePrise($datePrise);
+
+        $entityManager->persist($datePrise);
+        $entityManager->flush();
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+
     }
 }

@@ -9,6 +9,7 @@
 {% block jsSupplementaire %}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script defer type="text/javascript" src="{{ asset('js/calendrier.js') }}"></script>
+    <script defer type="text/javascript" src="{{ asset('js/prendrePilule.js') }}"></script>
 {% endblock %}
 
 {% block page_content %}
@@ -56,18 +57,17 @@
                     {% endif %}
 
 
-                    {% if medicament.datesPrises[0] is defined %}
-                        {% if medicament.datesPrises[0] | date('d/m/Y') == 'now'|date_modify('-1 day')|date('d/m/Y') %}
-                            <h4 class="light">Dernière prise <span class="redText">hier</span> à <span
-                                        class="redText">{{ medicament.datesPrises[0] | date('H:i') }}</span>.</h4>
+                    {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
+                        {% set lastDatePrise = medicament.datesPrises[0].datePrise %}
+                        {% if lastDatePrise | date('d/m/Y') == 'now'|date_modify('-1 day')|date('d/m/Y') %}
+                            <h4 class="light">Dernière prise <span class="redText">hier</span> à <span class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
                         {% else %}
-                            <h4 class="light">Dernière prise le <span
-                                        class="redText">{{ medicament.datesPrises[0] | date('d/m/Y') }}</span>.</h4>
+                            <h4 class="light">Dernière prise le <span class="redText">{{ lastDatePrise | date('d/m/Y') }}</span>.</h4>
                         {% endif %}
                     {% endif %}
                 </div>
                 <div>
-                    <a href="" class="bouton">Pris</a>
+                    <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">Prendre</div>
                 </div>
             </div>
 

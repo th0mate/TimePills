@@ -108,7 +108,7 @@ body {
                 padding: 10px;
             }
 
-            div {
+            div:not(.bouton) {
                 height: 100%!important;
                 display: flex;
                 flex-direction: column;
@@ -132,13 +132,22 @@ body {
                     width: 150px;
                     height: 30px;
                 }
+
+                .check {
+                    margin-right: 10px;
+                    width: 150px;
+                    height: 30px;
+                    background-color: #3c763d;
+                    color: white;
+                    border-radius: 5px;
+                }
             }
 
-            div:first-child {
+            div:first-child:not(.bouton) {
                 width: 150px;
             }
 
-            div:last-child {
+            div:last-child:not(.bouton) {
                 padding-left: 30px;
             }
         }

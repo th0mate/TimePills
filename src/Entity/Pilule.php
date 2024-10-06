@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PiluleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,8 +44,40 @@ class Pilule
     private ?\DateTimeInterface $dateDerniereReprise = null;
 
     #[Groups('pilule:read')]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\OneToMany(mappedBy: 'pilule', targetEntity: DatePrise::class, cascade: ['persist', 'remove'])]
     private Collection $datesPrises;
+
+    public function __construct()
+    {
+        $this->datesPrises = new ArrayCollection();
+    }
+
+    public function getDatesPrises(): Collection
+    {
+        return $this->datesPrises;
+    }
+
+    public function addDatePrise(DatePrise $datePrise): self
+    {
+        if (!$this->datesPrises->contains($datePrise)) {
+            $this->datesPrises[] = $datePrise;
+            $datePrise->setPilule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDatePrise(DatePrise $datePrise): self
+    {
+        if ($this->datesPrises->removeElement($datePrise)) {
+            if ($datePrise->getPilule() === $this) {
+                $datePrise->setPilule(null);
+            }
+        }
+
+        return $this;
+    }
+
 
     public function getId(): ?int
     {
@@ -137,18 +170,6 @@ class Pilule
     public function setDateDerniereReprise(?\DateTimeInterface $dateDerniereReprise): static
     {
         $this->dateDerniereReprise = $dateDerniereReprise;
-
-        return $this;
-    }
-
-    public function getDateTimeDernierePrise(): ?\DateTimeInterface
-    {
-        return end($this->datesPrises);
-    }
-
-    public function addDatePrise(?\DateTimeInterface $dateTimeDernierePrise): static
-    {
-        $this->datesPrises[] = $dateTimeDernierePrise;
 
         return $this;
     }
