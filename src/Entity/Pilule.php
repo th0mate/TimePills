@@ -200,4 +200,24 @@ class Pilule
         //on converti en string et on return
         return $dateDernierePrise->format('d/m/Y H:i');
     }
+
+    /**
+     * Retourne si la pilule est en période de pause à la date d'aujourd'hui, calculée par rapport à la date de dernière reprise, le nombre de pilules par plaquettes et le nombre de jours de pauses
+     * @return bool true si la pilule est en pause, false sinon
+     */
+    public function estEnPause(): bool
+    {
+        if ($this->dateDerniereReprise === null || $this->nbPilulesPlaquette === null || $this->nbJoursPause === null) {
+            return false;
+        }
+
+        $dateDerniereReprise = clone $this->dateDerniereReprise;
+        $dateFinPlaquette = $dateDerniereReprise->modify('+' . $this->nbPilulesPlaquette . ' days');
+        $dateFinPause = clone $dateFinPlaquette;
+        $dateFinPause->modify('+' . $this->nbJoursPause . ' days');
+
+        $aujourdhui = new \DateTime();
+
+        return $aujourdhui >= $dateFinPlaquette && $aujourdhui < $dateFinPause;
+    }
 }

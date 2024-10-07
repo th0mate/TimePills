@@ -10,3 +10,10 @@ async function prendrePilule() {
     document.querySelector(`[data-pilule-id="${id}"]`).removeAttribute('onclick');
 
 }
+
+async function test() {
+    let URLGetId = Routing.generate('piluleEstEnPause', {"idPilule": 1});
+    const response = await fetch(URLGetId, {method: "POST"});
+    console.log(await response.json());
+}
+test();

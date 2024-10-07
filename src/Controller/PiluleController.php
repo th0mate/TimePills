@@ -95,6 +95,17 @@ class PiluleController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
-
     }
+
+    #[Route('/piluleEstEnPause', name: 'piluleEstEnPause', options: ["expose" => true], methods: ['POST'])]
+    public function piluleEstEnPause(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $idPilule = $request->get('idPilule');
+        $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
+
+        $estEnPause = $pilule->estEnPause();
+
+        return new JsonResponse($estEnPause, Response::HTTP_OK);
+    }
+
 }
