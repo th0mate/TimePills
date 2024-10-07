@@ -51,9 +51,15 @@
                     <h4 class="light">Prochaine prise à <span
                                 class="redText">{{ medicament.heureDePrise | date('H:i') }}</span>.</h4>
                     {% if medicament.nbJoursPause != '' %}
-                        {# on calcule la date à laquelle sera la prochaine pause en nombre de jours #}
-                        <h4 class="light">Prochaine pause le <span
-                                    class="redText">{{ medicament.getDateProchainePause }}</span>.</h4>
+
+                        {% if medicament.estEnPause %}
+                            <h4 class="light">En <span
+                                        class="redText">pause</span>.</h4>
+                        {% else %}
+
+                            <h4 class="light">Prochaine pause le <span
+                                        class="redText">{{ medicament.getDateProchainePause }}</span>.</h4>
+                        {% endif %}
                     {% endif %}
 
 
@@ -64,7 +70,7 @@
                                         class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
                         {% else %}
                             <h4 class="light">Dernière prise le <span
-                                        class="redText">{{ lastDatePrise | date('m/d') }}</span>.</h4>
+                                        class="redText" id="datePrise">{{ lastDatePrise | date('m/d') }}</span>.</h4>
                         {% endif %}
                     {% endif %}
                 </div>
