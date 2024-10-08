@@ -10,6 +10,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script defer type="text/javascript" src="{{ asset('js/calendrier.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('js/prendrePilule.js') }}"></script>
+    <script defer type="text/javascript" src="{{ asset('js/accepterNotifications.js') }}"></script>
 {% endblock %}
 
 {% block page_content %}
@@ -32,6 +33,17 @@
 
     <div class="medicaments">
         <h2 class="redText">Mes médicaments</h2>
+
+        <div class="medicament veuxNotification">
+            <img src="{{ asset('img/attention.png') }}" alt="" style="width: 60px">
+            <div style="padding: 10px;">
+                <h3>Vous n'avez pas <span class="redText">décidé</span> d'accepter les <span class="redText">notifications</span>.</h3>
+                <br>
+                <h4 class="light">Ces <span class="redText">notifications</span> sont <span class="redText">importantes</span> pour vous rappeler de prendre vos traitements.</h4>
+                <br>
+                <div class="bouton" onclick="demanderNotification()" style="margin: auto">Gérer</div>
+            </div>
+        </div>
 
         <a href="{{ path('creerPilule') }}" class="medicament">
             <img src="{{ asset('img/ajouterMedicament.png') }}" alt="">

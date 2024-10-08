@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    onesignal_app_id: '79e54563-2dac-4b8b-9e3b-f0621d501ba3'
+    onesignal_api_key: 'MjM4ZjczZDUtNGZkYi00OTczLThiYTItN2UzZDA3NDQzM2U0'
 
 services:
     # default configuration for services in *this* file
@@ -19,6 +21,11 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\Service\NotificationService:
+        arguments:
+            $appId: '%onesignal_app_id%'
+            $apiKey: '%onesignal_api_key%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

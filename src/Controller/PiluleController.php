@@ -90,6 +90,7 @@ class PiluleController extends AbstractController
         $datePrise = new DatePrise();
         $datePrise->setDatePrise(new \DateTime());
         $pilule->addDatePrise($datePrise);
+        $this->addFlash('success', 'Traitement prise avec succès !');
 
         $entityManager->persist($datePrise);
         $entityManager->flush();
