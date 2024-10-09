@@ -42,8 +42,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
-    private ?bool $veutNotification = null;
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    private ?bool $veutNotification = false;
 
     public function getId(): ?int
     {
