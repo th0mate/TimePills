@@ -45,6 +45,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private ?bool $veutNotification = false;
 
+    #[ORM\OneToMany(targetEntity: OneSignalId::class, mappedBy: 'utilisateur', orphanRemoval: true)]
+    private Collection $oneSignalIds;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -168,6 +171,33 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVeutNotification(bool $veutNotification): static
     {
         $this->veutNotification = $veutNotification;
+
+        return $this;
+    }
+
+    public function getOneSignalIds(): Collection
+    {
+        return $this->oneSignalIds;
+    }
+
+    public function addOneSignalId(OneSignalId $oneSignalId): static
+    {
+        if (!$this->oneSignalIds->contains($oneSignalId)) {
+            $this->oneSignalIds[] = $oneSignalId;
+            $oneSignalId->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOneSignalId(OneSignalId $oneSignalId): static
+    {
+        if ($this->oneSignalIds->removeElement($oneSignalId)) {
+            // set the owning side to null (unless already changed)
+            if ($oneSignalId->getUtilisateur() === $this) {
+                $oneSignalId->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\OneSignalId;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
@@ -9,6 +10,7 @@ use App\Service\FlashMessageHelperInterface;
 use App\Service\UtilisateurManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -138,5 +140,30 @@ class UtilisateurController extends AbstractController
         $entityManager->persist($utilisateur);
         $entityManager->flush();
         return new Response('true');
+    }
+
+    #[Route('/utilisateur/enregistrerOneSignalId', name: 'enregistrer_one_signal_id', methods: ['POST'], options: ["expose" => true])]
+    public function enregistrerOneSignalId(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $oneSignalIdValue = $request->get('oneSignalId');
+        $utilisateur = $this->getUser();
+
+        if (!$utilisateur) {
+            return new JsonResponse(['error' => 'User not authenticated'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $oneSignalId = $entityManager->getRepository(OneSignalId::class)->findOneBy(['oneSignalId' => $oneSignalIdValue]);
+        if ($oneSignalId) {
+            return new JsonResponse(['error' => 'OneSignal ID already registered']);
+        }
+
+        $oneSignalId = new OneSignalId();
+        $oneSignalId->setOneSignalId($oneSignalIdValue);
+        $oneSignalId->setUtilisateur($utilisateur);
+
+        $entityManager->persist($oneSignalId);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => 'OneSignal ID registered successfully']);
     }
 }
