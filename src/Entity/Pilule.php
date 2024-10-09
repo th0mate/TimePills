@@ -220,4 +220,18 @@ class Pilule
 
         return $aujourdhui >= $dateFinPlaquette && $aujourdhui < $dateFinPause;
     }
+
+    public function getDateRepriseApresPause(): string
+    {
+        if ($this->dateDerniereReprise === null || $this->nbPilulesPlaquette === null || $this->nbJoursPause === null) {
+            return 'N/A';
+        }
+
+        $dateDerniereReprise = clone $this->dateDerniereReprise;
+        $dateFinPlaquette = $dateDerniereReprise->modify('+' . $this->nbPilulesPlaquette . ' days');
+        $dateFinPause = clone $dateFinPlaquette;
+        $dateFinPause->modify('+' . $this->nbJoursPause . ' days');
+
+        return $dateFinPause->format('d/m');
+    }
 }

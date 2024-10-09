@@ -11,10 +11,3 @@ async function prendrePilule() {
     document.querySelector('#datePrise').innerHTML = 'Dernière prise à' + new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0');
 
 }
-
-async function test() {
-    let URLGetId = Routing.generate('piluleEstEnPause', {"idPilule": 1});
-    const response = await fetch(URLGetId, {method: "POST"});
-    console.log('Pilule 1 DailyGé est en pause : ' + await response.json());
-}
-test();

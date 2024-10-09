@@ -88,7 +88,7 @@ a.redText:hover > span {
     width: 100%;
     border-radius: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     align-content: center;
     background-color: #e6e6e6;
@@ -96,6 +96,7 @@ a.redText:hover > span {
     .illu {
         width: 300px;
         padding-left: 10px;
+        padding-right: 35px;
     }
 
     div {

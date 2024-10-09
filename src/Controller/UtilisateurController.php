@@ -128,4 +128,15 @@ class UtilisateurController extends AbstractController
         }
         return $this->json($idPilules);
     }
+
+    #[Route('utilisateur/changerNotification', name: 'changerNotification', options: ["expose" => true], methods: ['POST'])]
+    public function changerNotification(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $bool = $request->get('veutNotification');
+        $utilisateur = $this->getUser();
+        $utilisateur->setVeutNotification($bool);
+        $entityManager->persist($utilisateur);
+        $entityManager->flush();
+        return new Response('true');
+    }
 }

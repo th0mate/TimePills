@@ -14,21 +14,21 @@
 {% endblock %}
 
 {% block page_content %}
-    <h1 class="onglet1">Mes médicaments</h1>
+<h1 class="onglet1">Mes médicaments</h1>
 
-    <div class="wrapTop">
-        <img class="illu" src="{{ asset('img/medicaments.png') }}" alt="">
+<div class="wrapTop">
+    <img class="illu" src="{{ asset('img/medicaments.png') }}" alt="">
 
-        <div>
-            <h2 class="redText">Gérez vos médicaments 💊</h2>
-            <h2>Ajoutez et gérez vos <span class="redText">médicaments</span> pour ne plus oublier de les prendre !
-            </h2>
-            <h4 class="light">Profitez du <span class="redText">calendrier</span> pour organiser vos prises de
-                traitements.</h4>
-        </div>
+    <div>
+        <h2 class="redText">Gérez vos médicaments 💊</h2>
+        <h2>Ajoutez et gérez vos <span class="redText">médicaments</span> pour ne plus oublier de les prendre !
+        </h2>
+        <h4 class="light">Profitez du <span class="redText">calendrier</span> pour organiser vos prises de
+            traitements.</h4>
     </div>
+</div>
 
-    <div class="wrapMedocs">
+<div class="wrapMedocs">
     <div id="calendar"></div>
 
     <div class="medicaments">
@@ -37,9 +37,11 @@
         <div class="medicament veuxNotification">
             <img src="{{ asset('img/attention.png') }}" alt="" style="width: 60px">
             <div style="padding: 10px;">
-                <h3>Vous n'avez pas <span class="redText">décidé</span> d'accepter les <span class="redText">notifications</span>.</h3>
+                <h3>Vous n'avez pas <span class="redText">décidé</span> d'accepter les <span class="redText">notifications</span>.
+                </h3>
                 <br>
-                <h4 class="light">Ces <span class="redText">notifications</span> sont <span class="redText">importantes</span> pour vous rappeler de prendre vos traitements.</h4>
+                <h4 class="light">Ces <span class="redText">notifications</span> sont <span
+                            class="redText">importantes</span> pour vous rappeler de prendre vos traitements.</h4>
                 <br>
                 <div class="bouton" onclick="demanderNotification()" style="margin: auto">Gérer</div>
             </div>
@@ -60,8 +62,19 @@
                 <div>
                     <h3 class="redText">{{ medicament.libelle }}</h3>
                     <br>
-                    <h4 class="light">Prochaine prise à <span
-                                class="redText">{{ medicament.heureDePrise | date('H:i') }}</span>.</h4>
+                    {% if medicament.estEnPause %}
+                        <h4 class="light">Prochaine prise le <span
+                                    class="redText">{{ medicament.getDateRepriseApresPause }}</span>.</h4>
+                    {% else %}
+                        {% if dateDernierePrise | date('d/m/Y') == 'now'|date('m/d/Y') %}
+                            <h4 class="light">Prochaine prise <span
+                                        class="redText">demain</span>.</h4>
+                        {% else %}
+                            <h4 class="light">Prochaine prise à <span
+                                        class="redText">{{ medicament.heureDePrise | date('H:i') }}</span>.</h4>
+                        {% endif %}
+                    {% endif %}
+
                     {% if medicament.nbJoursPause != '' %}
 
                         {% if medicament.estEnPause %}
@@ -106,7 +119,7 @@
                     {% else %}
                         {% if medicament.estEnPause %}
                             <div class="check">⏸️ En Pause
-                             </div>
+                            </div>
                         {% else %}
                             <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">💊 Prendre
                             </div>
@@ -119,4 +132,4 @@
 
     </div>
 
-{% endblock %}
+    {% endblock %}

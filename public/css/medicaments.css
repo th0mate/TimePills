@@ -74,7 +74,7 @@ body {
     }
 
     .medicaments {
-        width: 45%;
+        width: 540px;
         height: 50%;
         display: flex;
         flex-direction: column;

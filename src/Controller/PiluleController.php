@@ -102,6 +102,7 @@ class PiluleController extends AbstractController
     public function piluleEstEnPause(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $idPilule = $request->get('idPilule');
+        dump($idPilule);
         $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
 
         $estEnPause = $pilule->estEnPause();
