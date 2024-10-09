@@ -33,7 +33,8 @@ class SendNotificationsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $now = new \DateTime();
 
-        $pilules = $this->piluleRepository->findDuePilules($now);
+        //on récupère toutes les pilules dont l'heure de prise est égale à l'heure actuelle
+        $pilules = $this->piluleRepository->findByHeureDePrise($now);
 
         foreach ($pilules as $pilule) {
             $user = $pilule->getProprietaire();
@@ -49,7 +50,7 @@ class SendNotificationsCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function sendReminders($pilule, $userId, $message)
+    private function sendReminders($pilule, $userId, $message): void
     {
         $reminderInterval = new \DateInterval('PT10M');
         $now = new \DateTime();

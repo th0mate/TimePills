@@ -40,4 +40,18 @@ class PiluleRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    /**
+     * Retourne toutes les pilules dont l'heure de prise est égale à l'heure passée en paramètre
+     * @param \DateTime $dateTime Heure de prise recherchée
+     * @return Pilule[] Liste des pilules concernées
+     */
+    public function findByHeureDePrise(\DateTime $dateTime)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.heureDePrise = :heureDePrise')
+            ->setParameter('heureDePrise', $dateTime->format('H:i:s'))
+            ->getQuery()
+            ->getResult();
+    }
 }
