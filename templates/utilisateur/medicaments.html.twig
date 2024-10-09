@@ -104,8 +104,13 @@
                             {% endif %}
                         {% endif %}
                     {% else %}
-                        <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">💊 Prendre
-                        </div>
+                        {% if medicament.estEnPause %}
+                            <div class="check">⏸️ En Pause
+                             </div>
+                        {% else %}
+                            <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">💊 Prendre
+                            </div>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
