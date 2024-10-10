@@ -8,8 +8,13 @@ async function demanderNotification() {
                 let URL = Routing.generate('changerNotification', {"veutNotification": true});
                 const response = await fetch(URL, {method: "POST"});
 
-                let URL2 = Routing.generate('enregistrer_one_signal_id', {"oneSignalId": window.OneSignal.getUserId()});
-                const response2 = await fetch(URL2, {method: "POST"});
+                OneSignal.push(async function() {
+                    const userId = await OneSignal.User.PushSubscription.id
+                    if (userId) {
+                        let URL2 = Routing.generate('enregistrer_one_signal_id', {"oneSignalId": userId});
+                        await fetch(URL2, {method: "POST"});
+                    }
+                });
             } else {
                 afficherMessageFlash('Vous avez refusé les notifications.', 'info');
                 let URL = Routing.generate('changerNotification', {"veutNotification": false});

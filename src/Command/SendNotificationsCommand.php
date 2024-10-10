@@ -38,8 +38,9 @@ class SendNotificationsCommand extends Command
 
         foreach ($pilules as $pilule) {
             $user = $pilule->getProprietaire();
-            $message = "Il est temps de prendre votre pilule: " . $pilule->getLibelle();
-            $this->notificationService->sendNotification($user->getId(), $message);
+            $message = "Il est temps de prendre votre traitement : " . $pilule->getLibelle();
+            $this->notificationService->sendNotification($user, $message);
+            dump('Envoyé au service Notification');
 
             // Envoyer des rappels toutes les 10 minutes si la pilule n'a pas été prise
             $this->sendReminders($pilule, $user->getId(), $message);
@@ -64,8 +65,7 @@ class SendNotificationsCommand extends Command
 
     private function isPillTaken($pilule): bool
     {
-        // Implémentez la logique pour vérifier si la pilule a été prise
-        return false;
+        return $pilule->piluleEstPriseAujourdhui();
     }
 
     private function getEndOfDay(): \DateTime

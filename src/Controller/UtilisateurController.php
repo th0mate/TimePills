@@ -161,6 +161,8 @@ class UtilisateurController extends AbstractController
         $oneSignalId->setOneSignalId($oneSignalIdValue);
         $oneSignalId->setUtilisateur($utilisateur);
 
+        dump($oneSignalId);
+
         $entityManager->persist($oneSignalId);
         $entityManager->flush();
 

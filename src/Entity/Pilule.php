@@ -234,4 +234,16 @@ class Pilule
 
         return $dateFinPause->format('d/m');
     }
+
+    public function piluleEstPriseAujourdhui(): bool
+    {
+        $aujourdhui = new \DateTime();
+        $dateAujourdhui = $aujourdhui->format('Y-m-d');
+        foreach ($this->datesPrises as $datePrise) {
+            if ($datePrise->getDatePrise()->format('Y-m-d') === $dateAujourdhui) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
