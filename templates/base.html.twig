@@ -19,9 +19,12 @@
                 },
             });
         });
+        let lienServiceWorker = "{{ asset('js/personnalServiceWorker/service-worker.js') }}";
     </script>
     <script defer src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script defer src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('js/service-worker.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/messagesFlash.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/gestionThemes.js') }}" defer></script>
     {% block jsSupplementaire %}{% endblock %}

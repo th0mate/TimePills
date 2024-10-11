@@ -48,9 +48,16 @@ class PiluleRepository extends ServiceEntityRepository
      */
     public function findByHeureDePrise(\DateTime $dateTime)
     {
+        $heure = $dateTime->format('H');
+        $minutes = $dateTime->format('i');
+
+        $heureEtMinutes = $heure . ':' . $minutes;
+
+        //on récupère toutes les pilules pour lesquelles l'heure de prise (ex 22:00) est égale à l'heure passée en paramètre
+        //il n'y a qu'un champ heureDePrise, qui contient l'heure et les minutes
         return $this->createQueryBuilder('p')
-            ->andWhere('p.heureDePrise = :heureDePrise')
-            ->setParameter('heureDePrise', $dateTime->format('H:i:s'))
+            ->andWhere('p.heureDePrise = :heureEtMinutes')
+            ->setParameter('heureEtMinutes', $heureEtMinutes)
             ->getQuery()
             ->getResult();
     }

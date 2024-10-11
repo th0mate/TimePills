@@ -237,7 +237,7 @@ class Pilule
 
     public function piluleEstPriseAujourdhui(): bool
     {
-        $aujourdhui = new \DateTime();
+        $aujourdhui = $now = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         $dateAujourdhui = $aujourdhui->format('Y-m-d');
         foreach ($this->datesPrises as $datePrise) {
             if ($datePrise->getDatePrise()->format('Y-m-d') === $dateAujourdhui) {
