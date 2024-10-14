@@ -34,7 +34,7 @@ class SendNotificationsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $now = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
-        if ($now->format('i') == '00' || $now->format('i') == '05') {
+        if ($now->format('i') == '30') {
             file_put_contents($this->logFile, "", LOCK_EX);
         }
 
@@ -51,8 +51,7 @@ class SendNotificationsCommand extends Command
             return Command::FAILURE;
         }
 
-        file_put_contents($this->logFile, "FLAG à " . $now->format('Y-m-d H:i:s') . "\n", FILE_APPEND);
-        file_put_contents($this->logFile, "" . count($pilules) . " pilules trouvées avant affinage à " . $now->format('Y-m-d H:i:s') . "\n", FILE_APPEND);
+        file_put_contents($this->logFile, "" . count($pilules) . " pilules trouvées avant affinage \n", FILE_APPEND);
 
         foreach ($pilules as $pilule) {
             if ($pilule->estEnPause() || $pilule->piluleEstPriseAujourdhui()) {
@@ -61,7 +60,7 @@ class SendNotificationsCommand extends Command
         }
 
 
-        file_put_contents($this->logFile, "" . count($pilules) . " pilules correspondantes ont été trouvées à " . $now->format('Y-m-d H:i:s') . "\n", FILE_APPEND);
+        file_put_contents($this->logFile, "Final : " . count($pilules) . " pilules correspondantes ont été trouvées \n", FILE_APPEND);
 
 
         foreach ($pilules as $pilule) {
@@ -70,7 +69,6 @@ class SendNotificationsCommand extends Command
             file_put_contents($this->logFile, "Envoi d'un email pour " . $user->getAdresseMail() ."\n", FILE_APPEND);
             require __DIR__ . '/../../vendor/autoload.php';
             $mail = new PHPMailer;
-            file_put_contents($this->logFile, "FLAG \n", FILE_APPEND);
             try {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.hostinger.com';
@@ -78,15 +76,16 @@ class SendNotificationsCommand extends Command
                 $mail->Username = 'timepills@thomasloye.fr';
                 $mail->Password = 'Replay2020!';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->SMTPDebug = 2;
                 $mail->Port = 465;
+                $mail->CharSet = 'UTF-8';
+                $mail->Encoding = 'base64';
 
                 $mail->setFrom('timepills@thomasloye.fr', 'TimePills');
                 $mail->addAddress($user->getAdresseMail(), $user->getPrenom());
 
                 $mail->isHTML();
-                $mail->Subject = 'Il est l\'heure de prendre votre ' . $pilule->getLibelle() . '!';
-                $mail->Body = $this->getHtmlMessageInitial();
+                $mail->Subject = 'Il est l\'heure de prendre votre ' . $pilule->getLibelle() . ' !';
+                $mail->Body = file_get_contents(__DIR__ . '/mails/mailInitial.html');
 
                 if (!$mail->send()) {
                     file_put_contents($this->logFile, "Erreur : " . $mail->ErrorInfo . "\n", FILE_APPEND);
@@ -106,7 +105,7 @@ class SendNotificationsCommand extends Command
             }
         }
 
-        file_put_contents($this->logFile, "Si nécessaire, des mails ont bien été envoyés. \n", FILE_APPEND);
+        file_put_contents($this->logFile, "La procédure a été exécutée sans interruptions. \n", FILE_APPEND);
         file_put_contents($this->logFile, "---------------------------------------------------------- \n", FILE_APPEND);
         $io->success('Commande terminée.');
 
