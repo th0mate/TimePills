@@ -66,7 +66,7 @@
                         <h4 class="light">Prochaine prise le <span
                                     class="redText">{{ medicament.getDateRepriseApresPause }}</span>.</h4>
                     {% else %}
-                        {% if medicament.dateDernierePrise is defined and medicament.dateDernierePrise | date('d/m/Y') == 'now'|date('m/d/Y') %}
+                        {% if medicament.getDateTimeDernierePrise is defined and medicament.getDateTimeDernierePrise|date('d/m/Y') == 'now'|date('d/m/Y') %}
                             <h4 class="light">Prochaine prise <span
                                         class="redText">demain</span>.</h4>
                         {% else %}
@@ -94,8 +94,14 @@
                             <h4 class="light">Dernière prise <span class="redText">hier</span> à <span
                                         class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
                         {% else %}
-                            <h4 class="light">Dernière prise le <span
-                                        class="redText" id="datePrise">{{ lastDatePrise | date('m/d') }}</span>.</h4>
+                            {% if lastDatePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
+                                <h4 class="light">Dernière prise à <span
+                                            class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
+                            {% else %}
+                                <h4 class="light">Dernière prise le <span
+                                            class="redText" id="datePrise">{{ lastDatePrise | date('d/m') }}</span>.
+                                </h4>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </div>
@@ -103,7 +109,7 @@
                     {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
                         {% set dateDernierePrise = medicament.getDateTimeDernierePrise %}
                         {# si le médicament a bien été pris aujourd'hui #}
-                        {% if dateDernierePrise | date('d/m/Y') == 'now'|date('m/d/Y') %}
+                        {% if dateDernierePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
                             <div class="check">✅ Pris
                             </div>
                         {% else %}

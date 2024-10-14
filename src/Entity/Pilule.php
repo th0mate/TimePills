@@ -188,17 +188,16 @@ class Pilule
     }
 
 
-    public function getDateTimeDernierePrise(): string
+    public function getDateTimeDernierePrise(): \DateTime
     {
-        $dateDernierePrise = 'N/A';
+        $dateDernierePrise = null;
         foreach ($this->datesPrises as $datePrise) {
-            if ($datePrise->getDatePrise() > $dateDernierePrise) {
+            if ($dateDernierePrise === null || $datePrise->getDatePrise() > $dateDernierePrise) {
                 $dateDernierePrise = $datePrise->getDatePrise();
             }
         }
 
-        //on converti en string et on return
-        return $dateDernierePrise->format('d/m/Y H:i');
+        return $dateDernierePrise;
     }
 
     /**

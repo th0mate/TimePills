@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\DatePrise;
 use App\Entity\Pilule;
 use App\Form\PiluleType;
+use App\Repository\RappelRepository;
 use App\Repository\UtilisateurRepository;
 use App\Service\FlashMessageHelperInterface;
 use App\Service\UtilisateurManagerInterface;
@@ -22,6 +23,7 @@ class PiluleController extends AbstractController
         private FlashMessageHelperInterface $flashMessageHelperInterface,
         //private UtilisateurManagerInterface $utilisateurManagerInterface,
         //private UtilisateurRepository       $utilisateurRepository
+        private RappelRepository $rappelRepository
     )
     {
     }
@@ -91,6 +93,10 @@ class PiluleController extends AbstractController
         $datePrise->setDatePrise(new \DateTime());
         $pilule->addDatePrise($datePrise);
         $this->addFlash('success', 'Traitement prise avec succès !');
+
+        $rappel = $this->rappelRepository->findBy(['idPilule' => $idPilule]);
+        $this->rappelRepository->delete($rappel[0]);
+
 
         $entityManager->persist($datePrise);
         $entityManager->flush();
