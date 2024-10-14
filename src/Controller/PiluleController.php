@@ -92,15 +92,18 @@ class PiluleController extends AbstractController
         $datePrise = new DatePrise();
         $datePrise->setDatePrise(new \DateTime());
         $pilule->addDatePrise($datePrise);
-        $this->addFlash('success', 'Traitement prise avec succès !');
 
         $rappel = $this->rappelRepository->findBy(['idPilule' => $idPilule]);
-        $this->rappelRepository->delete($rappel[0]);
+        dump($rappel);
+
+        if (count($rappel) > 0)
+            $this->rappelRepository->delete($rappel[0]);
 
 
         $entityManager->persist($datePrise);
         $entityManager->flush();
 
+        $this->addFlash('success', 'Traitement prise avec succès !');
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 

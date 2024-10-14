@@ -66,7 +66,7 @@
                         <h4 class="light">Prochaine prise le <span
                                     class="redText">{{ medicament.getDateRepriseApresPause }}</span>.</h4>
                     {% else %}
-                        {% if medicament.getDateTimeDernierePrise is defined and medicament.getDateTimeDernierePrise|date('d/m/Y') == 'now'|date('d/m/Y') %}
+                        {% if medicament.datesPrises|length > 0 and medicament.getDateTimeDernierePrise|date('d/m/Y') == 'now'|date('d/m/Y') %}
                             <h4 class="light">Prochaine prise <span
                                         class="redText">demain</span>.</h4>
                         {% else %}
