@@ -40,9 +40,18 @@ class SendNotificationsCommand extends Command
 
         //$this->test();
 
-        file_put_contents($this->logFile, "Commande exécutée à " . $now->format('Y-m-d H:i:s') . "\n");
+        file_put_contents($this->logFile, "---------------------------------------------------------- \n", FILE_APPEND);
+        file_put_contents($this->logFile, "Commande exécutée à " . $now->format('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
-        $pilules = $this->piluleRepository->findByHeureDePrise($now);
+        try {
+            $pilules = $this->piluleRepository->findByHeureDePrise($now);
+        } catch (\Exception $e) {
+            $io->error('An error occurred: ' . $e->getMessage());
+            file_put_contents($this->logFile, "Erreur : " . $e->getMessage() . "\n", FILE_APPEND);
+            return Command::FAILURE;
+        }
+
+        file_put_contents($this->logFile, "FLAG à " . $now->format('Y-m-d H:i:s') . "\n", FILE_APPEND);
         file_put_contents($this->logFile, "" . count($pilules) . " pilules trouvées avant affinage à " . $now->format('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
         foreach ($pilules as $pilule) {
@@ -85,8 +94,8 @@ class SendNotificationsCommand extends Command
                     file_put_contents($this->logFile, "Notification envoyée pour la pilule :". $pilule->getLibelle() ."\n", FILE_APPEND);
                 }
 
-                $this->sendReminders($pilule, $user);
-                file_put_contents($this->logFile, "Lancement de la procédure de rappel : \n", FILE_APPEND);
+                //$this->sendReminders($pilule, $user);
+                //file_put_contents($this->logFile, "Lancement de la procédure de rappel : \n", FILE_APPEND);
 
                 $io->success('Notifications et rappels envoyés avec succès.');
 
@@ -98,6 +107,7 @@ class SendNotificationsCommand extends Command
         }
 
         file_put_contents($this->logFile, "Si nécessaire, des mails ont bien été envoyés. \n", FILE_APPEND);
+        file_put_contents($this->logFile, "---------------------------------------------------------- \n", FILE_APPEND);
         $io->success('Commande terminée.');
 
         return Command::SUCCESS;
