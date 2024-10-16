@@ -148,13 +148,10 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
                 //exemple d'une ligne du tableau :
                 //date = {datePrise: '2024-10-05T11:29:35+00:00'}
 
-                console.log(date.datePrise);
-
                 let dateUtile = new Date(date.datePrise);
                 //on met la date en France
                 dateUtil = new Date(dateUtile.setHours(dateUtile.getHours() - 2));
 
-                console.log(dateUtile);
                 //heure au format hh:mm. L'heure est déjà en France
                 const heure = dateUtile.getHours().toString().padStart(2, '0') + ':' + dateUtile.getMinutes().toString().padStart(2, '0');
 

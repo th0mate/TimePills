@@ -7,20 +7,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/base.css') }}">
     {% block cssSupplementaire %}{% endblock %}
     <link rel="icon" type="image/png" href="{{ asset('img/TimePillsLogo.png') }}">
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        OneSignalDeferred.push(async function(OneSignal) {
-            await OneSignal.init({
-                appId: "79e54563-2dac-4b8b-9e3b-f0621d501ba3",
-                safari_web_id: "web.onesignal.auto.50d89199-747f-4818-96ca-50d4208129fc",
-                notifyButton: {
-                    enable: true,
-                },
-            });
-        });
-        let lienServiceWorker = "{{ asset('js/personnalServiceWorker/service-worker.js') }}";
-    </script>
     <script defer src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script defer src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}" defer></script>
