@@ -116,6 +116,11 @@ class UtilisateurController extends AbstractController
     #[Route('utilisateur/medicaments', name: 'medicaments', methods: ['GET', 'POST'])]
     public function afficherMedicaments(): Response
     {
+
+        if (!$this->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('connexion');
+        }
+
         $medicaments = $this->getUser()->getPilules();
         return $this->render('utilisateur/medicaments.html.twig', ['page_actuelle' => 'Medicaments', 'medicaments' => $medicaments]);
     }

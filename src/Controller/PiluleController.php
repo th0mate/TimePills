@@ -89,8 +89,9 @@ class PiluleController extends AbstractController
         $idPilule = $request->get('idPilule');
         $pilule = $entityManager->getRepository(Pilule::class)->find($idPilule);
 
+        //date de prise en france
         $datePrise = new DatePrise();
-        $datePrise->setDatePrise(new \DateTime());
+        $datePrise->setDatePrise(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         $pilule->addDatePrise($datePrise);
 
         $rappel = $this->rappelRepository->findBy(['idPilule' => $idPilule]);
