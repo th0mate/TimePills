@@ -180,10 +180,28 @@ class Pilule
             return 'N/A';
         }
 
-        $dateDerniereReprise = $this->dateDerniereReprise->format('Y-m-d');
+        $dateDerniereReprise = $this->dateDerniereReprise;
         $nbPilulesPlaquette = $this->nbPilulesPlaquette;
 
-        return date('d/m', strtotime($dateDerniereReprise . ' + ' . $nbPilulesPlaquette . ' days'));
+        $dateAujourdhu = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $dateCursor = $dateDerniereReprise;
+
+        while ($dateCursor->format('Y-m-d') <= $dateAujourdhu->format('Y-m-d')) {
+
+            $dateCursor->modify('+' . $nbPilulesPlaquette . ' days');
+
+            for ($i = 0; $i < $this->nbJoursPause; $i++) {
+
+                if  ($dateCursor->format('Y-m-d') > $dateAujourdhu->format('Y-m-d')) {
+                    break;
+                }
+
+                $dateCursor->modify('+1 day');
+            }
+
+        }
+
+        return $dateCursor->format('d/m');
 
     }
 
