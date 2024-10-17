@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'fr',
+        height: 'auto',
         buttonText: {
             today: 'Aujourd\'hui'
         },

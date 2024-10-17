@@ -13,104 +13,102 @@
 {% endblock %}
 
 {% block page_content %}
-<h1 class="onglet1">Mes médicaments</h1>
+    <h1 class="onglet1">Mes médicaments</h1>
 
-<div class="wrapTop">
-    <img class="illu" src="{{ asset('img/medicaments.png') }}" alt="">
+    <div class="wrapTop">
+        <img class="illu" src="{{ asset('img/medicaments.png') }}" alt="">
 
-    <div>
-        <h2 class="redText">Gérez vos médicaments 💊</h2>
-        <h2>Ajoutez et gérez vos <span class="redText">médicaments</span> pour ne plus oublier de les prendre !
-        </h2>
-        <h4 class="light">Profitez du <span class="redText">calendrier</span> pour organiser vos prises de
-            traitements.</h4>
-    </div>
-</div>
-
-<div class="wrapMedocs">
-    <div id="calendar"></div>
-
-    <div class="medicaments">
-        <h2 class="redText">Mes médicaments</h2>
-
-        <div class="medicament veuxNotification">
-            <img src="{{ asset('img/attention.png') }}" alt="" style="width: 60px">
-            <div style="padding: 10px;">
-                <h3>Vous n'avez pas <span class="redText">décidé</span> d'accepter les <span class="redText">notifications</span>.
-                </h3>
-                <br>
-                <h4 class="light">Ces <span class="redText">notifications</span> sont <span
-                            class="redText">importantes</span> pour vous rappeler de prendre vos traitements.</h4>
-                <br>
-                <div class="bouton" onclick="demanderNotification()" style="margin: auto">Gérer</div>
-            </div>
+        <div>
+            <h2 class="redText">Gérez vos médicaments 💊</h2>
+            <h2>Ajoutez et gérez vos <span class="redText">médicaments</span> pour ne plus oublier de les prendre !
+            </h2>
+            <h4 class="light">Profitez du <span class="redText">calendrier</span> pour organiser vos prises de
+                traitements.</h4>
         </div>
+    </div>
 
-        <a href="{{ path('creerPilule') }}" class="medicament">
-            <img src="{{ asset('img/ajouterMedicament.png') }}" alt="">
-            <div style="padding-right: 10px; padding-left: 10px">
-                <h3 class="redText">Ajouter un médicament</h3>
-                <h4 class="light">Ajoutez un médicament à votre liste pour recevoir des rappels de prise.</h4>
-            </div>
-        </a>
+    <div class="wrapMedocs">
+        <div id="calendar"></div>
 
-        {% for medicament in medicaments %}
+        <div class="medicaments">
+            <h2 class="redText">Mes médicaments</h2>
 
-            <div class="medicament">
-                <img src="{{ asset('img/medicament.png') }}" alt="">
-                <div>
-                    <h3 class="redText">{{ medicament.libelle }}</h3>
-                    <br>
-                    {% if medicament.estEnPause %}
-                        <h4 class="light">Prochaine prise le <span
-                                    class="redText">{{ medicament.getDateRepriseApresPause }}</span>.</h4>
-                    {% else %}
-                        {% if medicament.datesPrises|length > 0 and medicament.getDateTimeDernierePrise|date('d/m/Y') == 'now'|date('d/m/Y') %}
-                            <h4 class="light">Prochaine prise <span
-                                        class="redText">demain</span>.</h4>
-                        {% else %}
-                            <h4 class="light">Prochaine prise à <span
-                                        class="redText">{{ medicament.heureDePrise | date('H:i') }}</span>.</h4>
-                        {% endif %}
-                    {% endif %}
+            <a href="{{ path('creerPilule') }}" class="medicament">
+                <img src="{{ asset('img/ajouterMedicament.png') }}" alt="">
+                <div style="padding-right: 10px; padding-left: 10px">
+                    <h3 class="redText">Ajouter un médicament</h3>
+                    <h4 class="light">Ajoutez un médicament à votre liste pour recevoir des rappels de prise.</h4>
+                </div>
+            </a>
 
-                    {% if medicament.nbJoursPause != '' %}
+            {% for medicament in medicaments %}
 
+                <div class="medicament">
+                    <img src="{{ asset('img/medicament.png') }}" alt="">
+                    <div>
+                        <h3 class="redText">{{ medicament.libelle }}</h3>
+                        <br>
                         {% if medicament.estEnPause %}
-                            <h4 class="light">En <span
-                                        class="redText">pause</span>.</h4>
+                            <h4 class="light">Prochaine prise le <span
+                                        class="redText">{{ medicament.getDateRepriseApresPause }}</span>.</h4>
                         {% else %}
-
-                            <h4 class="light">Prochaine pause le <span
-                                        class="redText">{{ medicament.getDateProchainePause }}</span>.</h4>
-                        {% endif %}
-                    {% endif %}
-
-
-                    {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
-                        {% set lastDatePrise = medicament.getDateTimeDernierePrise %}
-                        {% if lastDatePrise | date('d/m/Y') == 'now'|date_modify('-1 day')|date('d/m/Y') %}
-                            <h4 class="light">Dernière prise <span class="redText">hier</span> à <span
-                                        class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
-                        {% else %}
-                            {% if lastDatePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
-                                <h4 class="light">Dernière prise à <span
-                                            class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
+                            {% if medicament.datesPrises|length > 0 and medicament.getDateTimeDernierePrise|date('d/m/Y') == 'now'|date('d/m/Y') %}
+                                <h4 class="light">Prochaine prise <span
+                                            class="redText">demain</span>.</h4>
                             {% else %}
-                                <h4 class="light">Dernière prise le <span
-                                            class="redText" id="datePrise">{{ lastDatePrise | date('d/m') }}</span>.
-                                </h4>
+                                <h4 class="light">Prochaine prise à <span
+                                            class="redText">{{ medicament.heureDePrise | date('H:i') }}</span>.</h4>
                             {% endif %}
                         {% endif %}
-                    {% endif %}
-                </div>
-                <div>
-                    {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
-                        {% set dateDernierePrise = medicament.getDateTimeDernierePrise %}
-                        {# si le médicament a bien été pris aujourd'hui #}
-                        {% if dateDernierePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
-                            <div class="check">✅ Pris
-                            </div>
+
+                        {% if medicament.nbJoursPause != '' %}
+
+                            {% if medicament.estEnPause %}
+                                <h4 class="light">En <span
+                                            class="redText">pause</span>.</h4>
+                            {% else %}
+
+                                <h4 class="light">Prochaine pause le <span
+                                            class="redText">{{ medicament.getDateProchainePause }}</span>.</h4>
+                            {% endif %}
+                        {% endif %}
+
+
+                        {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
+                            {% set lastDatePrise = medicament.getDateTimeDernierePrise %}
+                            {% if lastDatePrise | date('d/m/Y') == 'now'|date_modify('-1 day')|date('d/m/Y') %}
+                                <h4 class="light">Dernière prise <span class="redText">hier</span> à <span
+                                            class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
+                            {% else %}
+                                {% if lastDatePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
+                                    <h4 class="light">Dernière prise à <span
+                                                class="redText">{{ lastDatePrise | date('H:i') }}</span>.</h4>
+                                {% else %}
+                                    <h4 class="light">Dernière prise le <span
+                                                class="redText" id="datePrise">{{ lastDatePrise | date('d/m') }}</span>.
+                                    </h4>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if medicament.datesPrises is defined and medicament.datesPrises|length > 0 %}
+                            {% set dateDernierePrise = medicament.getDateTimeDernierePrise %}
+                            {# si le médicament a bien été pris aujourd'hui #}
+                            {% if dateDernierePrise | date('d/m/Y') == 'now'|date('d/m/Y') %}
+                                <div class="check">✅ Pris
+                                </div>
+                            {% else %}
+                                {% if medicament.estEnPause %}
+                                    <div class="check">⏸️ En Pause
+                                    </div>
+                                {% else %}
+                                    <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">
+                                        💊
+                                        Prendre
+                                    </div>
+                                {% endif %}
+                            {% endif %}
                         {% else %}
                             {% if medicament.estEnPause %}
                                 <div class="check">⏸️ En Pause
@@ -121,20 +119,13 @@
                                 </div>
                             {% endif %}
                         {% endif %}
-                    {% else %}
-                        {% if medicament.estEnPause %}
-                            <div class="check">⏸️ En Pause
-                            </div>
-                        {% else %}
-                            <div data-pilule-id="{{ medicament.id }}" onclick="prendrePilule()" class="bouton">💊 Prendre
-                            </div>
-                        {% endif %}
-                    {% endif %}
+                    </div>
                 </div>
-            </div>
 
-        {% endfor %}
+            {% endfor %}
+
+        </div>
 
     </div>
 
-    {% endblock %}
+{% endblock %}

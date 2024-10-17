@@ -66,6 +66,14 @@ body {
     #calendar {
         width: 52%;
         height: auto;
+        min-height: auto;
+        max-height: none;
+        overflow: hidden;
+    }
+
+    .fc-col-header {
+        background-color: #f0f1ec;
+        color: black;
     }
 
     .fc-view-harness, .fc-view-harness-active {
@@ -165,6 +173,11 @@ body {
     .medicament {
         background-color: #232323!important;
         color: white!important;
+    }
+
+    .fc-col-header {
+        background-color: #232323;
+        color: white;
     }
 }
 

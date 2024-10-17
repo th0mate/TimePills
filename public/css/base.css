@@ -339,7 +339,7 @@ nav {
     align-items: center;
     align-content: center;
     padding-top: 10px;
-    position: fixed;
+    position: absolute;
     top: 85px;
     right: 15px;
     width: 150px;
