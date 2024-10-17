@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use function PHPUnit\Framework\isNull;
 
 #[ORM\Entity(repositoryClass: PiluleRepository::class)]
 class Pilule
@@ -192,7 +193,7 @@ class Pilule
 
             for ($i = 0; $i < $this->nbJoursPause; $i++) {
 
-                if  ($dateCursor->format('Y-m-d') > $dateAujourdhu->format('Y-m-d')) {
+                if ($dateCursor->format('Y-m-d') > $dateAujourdhu->format('Y-m-d')) {
                     break;
                 }
 
@@ -228,14 +229,32 @@ class Pilule
             return false;
         }
 
-        $dateDerniereReprise = clone $this->dateDerniereReprise;
-        $dateFinPlaquette = $dateDerniereReprise->modify('+' . $this->nbPilulesPlaquette . ' days');
-        $dateFinPause = clone $dateFinPlaquette;
-        $dateFinPause->modify('+' . $this->nbJoursPause . ' days');
+        $nbJoursPause = $this->nbJoursPause;
 
-        $aujourdhui = new \DateTime();
+        $dateCursor = clone $this->dateDerniereReprise;
+        $dateAujourdhu = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
 
-        return $aujourdhui >= $dateFinPlaquette && $aujourdhui < $dateFinPause;
+        $estEnPause = null;
+
+        while ($dateCursor->format('Y-m-d') <= $dateAujourdhu->format('Y-m-d')) {
+
+            $dateCursor->modify('+' . $this->nbPilulesPlaquette . ' days');
+
+            for ($i = 0; $i < $nbJoursPause; $i++) {
+                if ($dateCursor->format('Y-m-d') == $dateAujourdhu->format('Y-m-d')) {
+                    $estEnPause = true;
+                    break;
+                }
+                $dateCursor->modify('+1 day');
+            }
+
+        }
+
+        if ($estEnPause === null) {
+            $estEnPause = false;
+        }
+
+        return $estEnPause;
     }
 
     public function getDateRepriseApresPause(): string
@@ -245,11 +264,24 @@ class Pilule
         }
 
         $dateDerniereReprise = clone $this->dateDerniereReprise;
-        $dateFinPlaquette = $dateDerniereReprise->modify('+' . $this->nbPilulesPlaquette . ' days');
-        $dateFinPause = clone $dateFinPlaquette;
-        $dateFinPause->modify('+' . $this->nbJoursPause . ' days');
+        $nbPilulesPlaquette = $this->nbPilulesPlaquette;
+        $nbJoursPause = $this->nbJoursPause;
 
-        return $dateFinPause->format('d/m');
+        $dateAujourdhu = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $dateCursor = $dateDerniereReprise;
+
+        while ($dateCursor->format('Y-m-d') <= $dateAujourdhu->format('Y-m-d')) {
+            $dateCursor->modify('+' . $nbPilulesPlaquette . ' days');
+
+            for ($i = 0; $i < $nbJoursPause; $i++) {
+                if ($dateCursor->format('Y-m-d') > $dateAujourdhu->format('Y-m-d')) {
+                    break;
+                }
+                $dateCursor->modify('+1 day');
+            }
+        }
+
+        return $dateCursor->format('d/m');
     }
 
     public function piluleEstPriseAujourdhui(): bool
