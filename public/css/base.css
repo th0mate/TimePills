@@ -177,14 +177,14 @@ nav {
                 margin: 0;
             }
 
+            &:hover {
+                background-color: #ff9191;
+            }
+
             img {
                 padding-right: 10px;
                 width: 30px;
                 filter: invert(1);
-            }
-
-            &:hover {
-                background-color: #ff9191;
             }
 
             button {
@@ -199,6 +199,16 @@ nav {
                 text-align: left;
                 font-size: 1em;
                 font-family: "Montserrat", sans-serif!important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+
+                img {
+                    padding-right: 10px;
+                    width: 30px;
+                    filter: invert(1);
+                }
             }
 
         }
@@ -500,6 +510,28 @@ nav {
                 p {
                     display: none;
                 }
+            }
+
+            form {
+
+                button {
+
+                    *:not(img) {
+                        display: none;
+                    }
+
+                    p {
+                        display: none!important;
+                    }
+
+                    img {
+                        padding: 0!important;
+                        margin: 0!important;
+                    }
+
+                }
+
+                margin: 0;
             }
         }
     }

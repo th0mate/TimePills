@@ -1,5 +1,6 @@
 .wrapTop {
     margin-bottom: 20px;
+
     img {
         width: 200px;
     }
@@ -77,7 +78,7 @@ body {
     }
 
     .fc-view-harness, .fc-view-harness-active {
-        height: auto!important;
+        height: auto !important;
         min-height: 500px;
     }
 
@@ -116,51 +117,51 @@ body {
                 padding: 10px;
             }
 
-            div:not(.bouton) {
-                height: 100%!important;
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            .separatorMedoc {
                 display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-                align-items: flex-start;
-                align-content: flex-start;
-                padding-left: 15px;
-                padding-right: 25px;
+                justify-content: space-between;
+                align-items: center;
+                align-content: center;
+                padding: 10px;
+                width: 80%;
+                height: 100%;
 
-                br {
-                    line-height: 0.5;
-                }
-
-                * {
-                    margin: 0;
-                    padding: 0;
-                }
-
-                .bouton {
-                    margin-right: 10px;
-                    width: 150px;
-                    height: 30px;
-                }
-
-                .check {
-                    width: 150px;
-                    height: 30px;
-                    background-color: #3c763d;
-                    color: white;
-                    border-radius: 5px;
-                    padding: 10px;
+                div:not(.bouton) {
+                    height: 100% !important;
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    align-content: center;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: flex-start;
+                    align-content: flex-start;
+
+                    br {
+                        line-height: 0.5;
+                    }
+
+                    .bouton {
+                        width: 150px;
+                        height: 30px;
+                    }
+
+                    .check {
+                        width: 150px;
+                        height: 30px;
+                        background-color: #3c763d;
+                        color: white;
+                        border-radius: 5px;
+                        padding: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        align-content: center;
+                    }
                 }
-            }
 
-            div:first-child:not(.bouton, .check) {
-                width: 150px;
-            }
-
-            div:last-child:not(.bouton, .check) {
-                padding-left: 30px;
             }
         }
 
@@ -171,8 +172,8 @@ body {
 
 .dark {
     .medicament {
-        background-color: #232323!important;
-        color: white!important;
+        background-color: #232323 !important;
+        color: white !important;
     }
 
     .fc-col-header {
@@ -228,12 +229,12 @@ body {
 
 @media (max-width: 700px) {
     .fc-toolbar-title {
-        font-size: 1.2em!important;
-        color: var(--rouge)!important;
+        font-size: 1.2em !important;
+        color: var(--rouge) !important;
     }
 
     .fc-event-title {
-        font-size: 0.8em!important;
+        font-size: 0.8em !important;
     }
 
     .medicament {
@@ -244,5 +245,21 @@ body {
         h4 {
             font-size: 0.8em;
         }
+    }
+}
+
+
+@media (max-width: 570px) {
+
+    .medicament {
+
+        h3 {
+            font-size: 1.2em;
+        }
+
+        h4 {
+            font-size: 1em;
+        }
+
     }
 }
