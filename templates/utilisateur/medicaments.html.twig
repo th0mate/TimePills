@@ -10,6 +10,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script defer type="text/javascript" src="{{ asset('js/calendrier.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('js/prendrePilule.js') }}"></script>
+    <script defer type="text/javascript" src="{{ asset('js/gererMedicament.js') }}"></script>
 {% endblock %}
 
 {% block page_content %}
@@ -45,7 +46,7 @@
             {% for medicament in medicaments %}
 
                 <div class="medicament">
-                    <img class="dots invertLight" src="{{ asset('img/points.png') }}" alt="">
+                    <img class="dots invertLight" data-pilule-id="{{ medicament.id }}" src="{{ asset('img/points.png') }}" alt="">
                     <img src="{{ asset('img/medicament.png') }}" alt="">
                     <div class="separatorMedoc">
                         <div>
@@ -133,6 +134,13 @@
 
         </div>
 
+    </div>
+
+    <div id="menu" class="menu" style="display: none;">
+        <ul>
+            <li onclick="modifierTraitement()"><i class="fi fi-rr-file-edit"></i>Modifier</li>
+            <li class="rouge" onclick="supprimerTraitement()"><i class="fi fi-rr-trash-xmark"></i>Supprimer</li>
+        </ul>
     </div>
 
 {% endblock %}
