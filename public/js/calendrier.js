@@ -81,6 +81,7 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
 
             } else {
                 let date = dateDerniereReprise;
+                /*
                 for (let i = 0; i < pilule.nbPilulesPlaquette; i++) {
                     if (date < new Date(new Date().setHours(0, 0, 0, 0))) {
                         const event = {
@@ -110,7 +111,31 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
                     date.setDate(date.getDate() + 1);
                 }
 
-                //on fait un cycle supplémentaire
+                 */
+
+                while (date < new Date(new Date().setHours(0, 0, 0, 0))) {
+
+                    for (let i = 0; i < pilule.nbPilulesPlaquette; i++) {
+                        const event = {
+                            title: pilule.libelle + ' pris',
+                            start: date,
+                            allDay: true
+                        };
+                        calendar.addEvent(event);
+                        date.setDate(date.getDate() + 1);
+                    }
+
+                    for (let i = 0; i < pilule.nbJoursPause; i++) {
+                        const event = {
+                            title: 'Pause - ' + pilule.libelle,
+                            start: date,
+                            allDay: true
+                        };
+                        calendar.addEvent(event);
+                        date.setDate(date.getDate() + 1);
+                    }
+
+                }
 
                 for (let i = 0; i < pilule.nbPilulesPlaquette; i++) {
                     const event = {
@@ -140,20 +165,14 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
         const responseDatesPrises = await fetch(URLDatesPrises, {method: "POST"});
         pilule.datesPrises = await responseDatesPrises.json();
 
-        console.log(pilule.datesPrises);
-
 
         if (pilule.datesPrises.length > 0) {
 
             for (let date of pilule.datesPrises) {
-                //exemple d'une ligne du tableau :
-                //date = {datePrise: '2024-10-05T11:29:35+00:00'}
 
                 let dateUtile = new Date(date.datePrise);
-                //on met la date en France
                 dateUtil = new Date(dateUtile.setHours(dateUtile.getHours() - 2));
 
-                //heure au format hh:mm. L'heure est déjà en France
                 const heure = dateUtile.getHours().toString().padStart(2, '0') + ':' + dateUtile.getMinutes().toString().padStart(2, '0');
 
                 const events = calendar.getEvents();
@@ -174,8 +193,6 @@ async function ajouterEvenementsCalendrierSelonPilule(calendar) {
                 calendar.addEvent(event);
             }
         }
-
-
 
 
     }
